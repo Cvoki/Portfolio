@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Luka Cvoro — Oracle APEX &amp; PL/SQL Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#07161d; --deep:#0b2029; --panel:#102a35; --line:#1d4353;
+  --ink:#dfeef2; --muted:#7fa3b0; --amber:#f0a93b; --cyan:#56c7d8; --rose:#e4757a;
+  --radius:3px; --pad:clamp(20px,5vw,64px);
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--void);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.02;letter-spacing:-.025em;margin:0}
+a{color:var(--cyan)}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.wrap{max-width:1140px;margin:0 auto;padding-inline:var(--pad)}
+.mono{font-family:var(--mono)}
+.kw{color:var(--amber)} .str{color:var(--cyan)} .cmt{color:var(--muted)}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:40;background:rgba(7,22,29,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:20px;height:58px}
+.brand{font-family:var(--mono);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);text-decoration:none;margin-right:auto}
+.brand b{color:var(--amber);font-weight:600}
+.nav a.lnk{font-family:var(--mono);font-size:12.5px;color:var(--muted);text-decoration:none;letter-spacing:.06em}
+.nav a.lnk:hover{color:var(--ink)}
+.lang{font-family:var(--mono);font-size:12px;letter-spacing:.1em;background:transparent;border:1px solid var(--line);border-radius:100px;color:var(--cyan);padding:5px 13px;cursor:pointer;transition:.18s}
+.lang:hover{border-color:var(--cyan)}
+@media(max-width:760px){.nav a.lnk:nth-child(4){display:none}}
+@media(max-width:600px){.nav a.lnk:nth-child(3){display:none}}
+@media(max-width:480px){.nav a.lnk:nth-child(2){display:none}}
+
+/* hero */
+.hero{position:relative;padding:clamp(56px,10vw,110px) 0 clamp(40px,7vw,80px);overflow:hidden;border-bottom:1px solid var(--line)}
+.hero::before{content:"";position:absolute;inset:0;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:56px 56px;opacity:.28;
+  mask-image:radial-gradient(115% 85% at 12% 0%,#000 20%,transparent 78%);
+  -webkit-mask-image:radial-gradient(115% 85% at 12% 0%,#000 20%,transparent 78%)}
+.hero .wrap{position:relative}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin:0 0 22px}
+.hero h1{font-size:clamp(40px,8.4vw,92px)}
+.hero h1 em{font-style:normal;color:var(--amber)}
+.lede{max-width:54ch;color:var(--muted);font-size:clamp(16px,2.1vw,19px);margin:22px 0 0}
+.lede strong{color:var(--ink);font-weight:500}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:34px;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.hero-meta b{color:var(--cyan);font-weight:500}
+.rise{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.2,.7,.3,1) forwards}
+.rise:nth-child(2){animation-delay:.08s}
+.rise:nth-child(3){animation-delay:.16s}
+.rise:nth-child(4){animation-delay:.24s}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* sekcije */
+section{padding:clamp(52px,8vw,96px) 0}
+.sec-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:34px}
+.sec-head h2{font-size:clamp(26px,4.4vw,44px)}
+.sec-head .num{font-family:var(--mono);font-size:12px;color:var(--amber);letter-spacing:.2em}
+.sec-head p{color:var(--muted);margin:6px 0 0;flex:1 1 320px;min-width:260px}
+
+/* iskustvo */
+.xp{border-left:2px solid var(--line);margin-left:6px;padding-left:0;list-style:none}
+.xp li{position:relative;padding:0 0 30px 30px}
+.xp li:last-child{padding-bottom:6px}
+.xp li::before{content:"";position:absolute;left:-7px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--void);border:2px solid var(--muted)}
+.xp li.now::before{background:var(--amber);border-color:var(--amber);box-shadow:0 0 0 5px rgba(240,169,59,.16)}
+.xp .role{font-family:var(--display);font-weight:800;font-size:clamp(18px,2.6vw,24px);letter-spacing:-.02em}
+.xp .firm{font-family:var(--mono);font-size:13px;color:var(--cyan);margin-top:3px}
+.xp .when{font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
+.xp p{color:var(--muted);font-size:14.5px;margin:9px 0 0;max-width:64ch}
+.xp .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.xp .tags span{font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:100px;padding:2px 10px}
+.edu{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:44px}
+@media(max-width:700px){.edu{grid-template-columns:1fr}}
+.edu-card{border:1px solid var(--line);background:var(--deep);border-radius:var(--radius);padding:22px}
+.edu-card .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}
+.edu-card h3{font-size:19px;margin:9px 0 5px;line-height:1.25}
+.edu-card p{margin:0;color:var(--muted);font-size:14px}
+
+/* konzola */
+.console{border:1px solid var(--line);background:var(--deep);border-radius:var(--radius)}
+.console-bar{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.1em}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.dot.on{background:var(--amber)}
+.query{padding:16px;font-family:var(--mono);font-size:clamp(12.5px,1.7vw,15px);line-height:1.75;overflow-x:auto;white-space:pre-wrap;word-break:break-word;margin:0}
+.controls{display:grid;gap:18px;padding:16px;border-top:1px solid var(--line)}
+.ctl-label{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:9px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--mono);font-size:12.5px;color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:100px;padding:6px 14px;cursor:pointer;transition:.18s}
+.chip:hover{color:var(--ink);border-color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--amber);color:#08161c;border-color:var(--amber);font-weight:600}
+.ctl-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:620px){.ctl-row{grid-template-columns:1fr}}
+input[type=search],input[type=text],input[type=email],input[type=date],select,textarea{
+  width:100%;background:var(--void);color:var(--ink);border:1px solid var(--line);
+  border-radius:var(--radius);padding:11px 13px;font-family:var(--body);font-size:15px}
+input[type=search]{font-family:var(--mono);font-size:13.5px}
+input:focus,select:focus,textarea:focus{border-color:var(--cyan);outline:none;box-shadow:0 0 0 3px rgba(86,199,216,.14)}
+input[type=range]{width:100%;accent-color:var(--amber);background:transparent}
+.range-val{font-family:var(--mono);font-size:12.5px;color:var(--cyan)}
+
+/* kartice */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(276px,1fr));gap:16px;margin-top:22px}
+.card{border:1px solid var(--line);background:var(--deep);border-radius:var(--radius);padding:20px;display:flex;flex-direction:column;gap:14px;
+  opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s,border-color .2s,background .2s}
+.card.is-in{opacity:1;transform:none}
+.card:hover{border-color:var(--cyan);background:var(--panel)}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.card h3{font-size:22px}
+.badge{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);border:1px solid rgba(240,169,59,.4);border-radius:100px;padding:3px 9px;white-space:nowrap}
+.card p{margin:0;color:var(--muted);font-size:14.5px}
+.attrs{list-style:none;margin:0;padding:0;font-family:var(--mono);font-size:12.5px;display:grid;gap:5px}
+.attrs li{display:flex;gap:10px;color:var(--ink)}
+.attrs span{color:var(--muted);min-width:80px}
+.meter{display:flex;gap:4px;margin-top:auto;padding-top:4px}
+.meter i{height:5px;flex:1;background:var(--line);border-radius:2px}
+.meter i.f{background:var(--cyan)}
+.empty{border:1px dashed var(--line);border-radius:var(--radius);padding:40px 20px;text-align:center;color:var(--muted);font-family:var(--mono);font-size:13.5px}
+
+/* kod tabovi */
+.tabs{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line);border-bottom:none;border-radius:var(--radius) var(--radius) 0 0;overflow:hidden}
+.tab{flex:1 1 auto;background:var(--deep);border:none;border-right:1px solid var(--line);color:var(--muted);font-family:var(--mono);font-size:12.5px;padding:12px 10px;cursor:pointer;transition:.18s}
+.tab:last-child{border-right:none}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--panel);color:var(--amber);box-shadow:inset 0 -2px 0 var(--amber)}
+pre.code{margin:0;border:1px solid var(--line);border-radius:0 0 var(--radius) var(--radius);background:var(--deep);padding:20px;overflow-x:auto;font-family:var(--mono);font-size:13px;line-height:1.72;color:var(--ink)}
+
+/* forme */
+.forms{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+@media(max-width:900px){.forms{grid-template-columns:1fr}}
+.form-card{border:1px solid var(--line);background:var(--deep);border-radius:var(--radius);padding:clamp(20px,3vw,30px)}
+.form-card h3{font-size:24px;margin-bottom:6px}
+.form-card > p.hint{color:var(--muted);font-size:14.5px;margin:0 0 22px}
+.field{margin-bottom:17px}
+.field > label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.field > label .req{color:var(--rose)}
+.err{display:none;font-family:var(--mono);font-size:12px;color:var(--rose);margin-top:6px}
+.field.bad .err{display:block}
+.field.bad input,.field.bad select,.field.bad textarea{border-color:var(--rose)}
+textarea{resize:vertical;min-height:104px;line-height:1.55}
+.opts{display:flex;flex-wrap:wrap;gap:8px 18px}
+.opt{display:flex;align-items:center;gap:8px;font-size:14.5px;color:var(--ink);cursor:pointer}
+.opt input{accent-color:var(--amber);width:16px;height:16px}
+.btn{font-family:var(--mono);font-size:13px;letter-spacing:.08em;background:var(--amber);color:#08161c;border:1px solid var(--amber);border-radius:var(--radius);padding:12px 22px;cursor:pointer;font-weight:600;transition:.18s}
+.btn:hover{background:#ffc165;border-color:#ffc165}
+.btn.ghost{background:transparent;color:var(--muted);border-color:var(--line);font-weight:400}
+.btn.ghost:hover{color:var(--ink);border-color:var(--muted);background:transparent}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:22px}
+.out{display:none;margin-top:20px;border:1px solid var(--cyan);border-radius:var(--radius);background:var(--void)}
+.out.show{display:block}
+.out header{padding:9px 14px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+.out pre{margin:0;padding:16px;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:var(--ink);overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+.note{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:14px}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:34px 0 46px;color:var(--muted);font-family:var(--mono);font-size:12.5px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--ink)}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .rise,.card{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">luka<b>.</b>cvoro</a>
+    <a class="lnk" href="#iskustvo" data-i18n="nav.xp"></a>
+    <a class="lnk" href="#stack" data-i18n="nav.stack"></a>
+    <a class="lnk" href="#kod" data-i18n="nav.code"></a>
+    <a class="lnk" href="#kontakt" data-i18n="nav.contact"></a>
+    <button class="lang" id="langBtn" type="button" aria-label="Switch language"></button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <p class="eyebrow rise" data-i18n="hero.eyebrow"></p>
+    <h1 class="rise">Luka<br><em>Cvoro.</em></h1>
+    <p class="lede rise" data-i18n-html="hero.lede"></p>
+    <div class="hero-meta rise">
+      <span><span data-i18n="m.now"></span> <b>NETcom System</b></span>
+      <span><span data-i18n="m.focus"></span> <b>Oracle APEX</b></span>
+      <span><span data-i18n="m.exp"></span> <b data-i18n="m.exp.v"></b></span>
+      <span><span data-i18n="m.loc"></span> <b data-i18n="m.loc.v"></b></span>
+    </div>
+  </div>
+</header>
+
+<section id="iskustvo">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="num">01</span>
+      <h2 data-i18n="s1.title"></h2>
+      <p data-i18n="s1.sub"></p>
+    </div>
+    <ul class="xp" id="xpList"></ul>
+    <div class="edu" id="eduList"></div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="num">02</span>
+      <h2 data-i18n="s2.title"></h2>
+      <p data-i18n="s2.sub"></p>
+    </div>
+
+    <div class="console">
+      <div class="console-bar"><span class="dot on"></span><span class="dot"></span><span class="dot"></span> <span data-i18n="console.bar"></span></div>
+      <pre class="query" id="query"></pre>
+      <div class="controls">
+        <div>
+          <span class="ctl-label" data-i18n="ctl.cat"></span>
+          <div class="chips" id="chips"></div>
+        </div>
+        <div class="ctl-row">
+          <div>
+            <label class="ctl-label" for="search" data-i18n="ctl.search"></label>
+            <input type="search" id="search" data-i18n-ph="ctl.search.ph" autocomplete="off">
+          </div>
+          <div>
+            <label class="ctl-label" for="lvl"><span data-i18n="ctl.lvl"></span> <span class="range-val" id="lvlVal">1</span>/5</label>
+            <input type="range" id="lvl" min="1" max="5" step="1" value="1">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" hidden data-i18n="empty"></div>
+  </div>
+</section>
+
+<section id="kod">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="num">03</span>
+      <h2 data-i18n="s3.title"></h2>
+      <p data-i18n="s3.sub"></p>
+    </div>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <pre class="code" id="code"></pre>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="num">04</span>
+      <h2 data-i18n="s4.title"></h2>
+      <p data-i18n="s4.sub"></p>
+    </div>
+
+    <div class="forms">
+      <!-- FORMA 1 -->
+      <div class="form-card">
+        <h3 data-i18n="f1.title"></h3>
+        <p class="hint" data-i18n="f1.hint"></p>
+        <form id="formKontakt" novalidate>
+          <div class="field" data-f="ime">
+            <label for="k-ime"><span data-i18n="f1.name"></span> <span class="req">*</span></label>
+            <input type="text" id="k-ime" name="ime" autocomplete="name">
+            <span class="err" data-i18n="f1.name.err"></span>
+          </div>
+          <div class="field" data-f="email">
+            <label for="k-email">Email <span class="req">*</span></label>
+            <input type="email" id="k-email" name="email" autocomplete="email" placeholder="ime@firma.rs">
+            <span class="err" data-i18n="f.email.err"></span>
+          </div>
+          <div class="field" data-f="tema">
+            <label for="k-tema"><span data-i18n="f1.topic"></span> <span class="req">*</span></label>
+            <select id="k-tema" name="tema"></select>
+            <span class="err" data-i18n="f1.topic.err"></span>
+          </div>
+          <div class="field" data-f="poruka">
+            <label for="k-poruka"><span data-i18n="f1.msg"></span> <span class="req">*</span></label>
+            <textarea id="k-poruka" name="poruka" data-i18n-ph="f1.msg.ph"></textarea>
+            <span class="err" data-i18n="f1.msg.err"></span>
+          </div>
+          <div class="field" data-f="saglasnost">
+            <label class="opt" style="text-transform:none;letter-spacing:0;font-family:var(--body)">
+              <input type="checkbox" id="k-sag" name="saglasnost"> <span data-i18n="f1.consent"></span>
+            </label>
+            <span class="err" data-i18n="f1.consent.err"></span>
+          </div>
+          <div class="btn-row">
+            <button class="btn" type="submit" data-i18n="f1.send"></button>
+            <button class="btn ghost" type="reset" data-i18n="btn.clear"></button>
+          </div>
+        </form>
+        <div class="out" id="outKontakt"><header data-i18n="out.msg"></header><pre></pre></div>
+      </div>
+
+      <!-- FORMA 2 -->
+      <div class="form-card">
+        <h3 data-i18n="f2.title"></h3>
+        <p class="hint" data-i18n="f2.hint"></p>
+        <form id="formPonuda" novalidate>
+          <div class="field" data-f="firma">
+            <label for="p-firma"><span data-i18n="f2.firm"></span> <span class="req">*</span></label>
+            <input type="text" id="p-firma" name="firma" autocomplete="organization">
+            <span class="err" data-i18n="f2.firm.err"></span>
+          </div>
+          <div class="field" data-f="email">
+            <label for="p-email">Email <span class="req">*</span></label>
+            <input type="email" id="p-email" name="email" autocomplete="email">
+            <span class="err" data-i18n="f.email.err"></span>
+          </div>
+          <div class="field" data-f="tip">
+            <label><span data-i18n="f2.type"></span> <span class="req">*</span></label>
+            <div class="opts" id="p-tip"></div>
+            <span class="err" data-i18n="f2.type.err"></span>
+          </div>
+          <div class="field" data-f="tehnologije">
+            <label><span data-i18n="f2.tech"></span> <span class="req">*</span></label>
+            <div class="opts" id="p-teh"></div>
+            <span class="err" data-i18n="f2.tech.err"></span>
+          </div>
+          <div class="field" data-f="rok">
+            <label for="p-rok" data-i18n="f2.deadline"></label>
+            <input type="date" id="p-rok" name="rok">
+            <span class="err" data-i18n="f2.deadline.err"></span>
+          </div>
+          <div class="field" data-f="budzet">
+            <label for="p-budzet"><span data-i18n="f2.budget"></span> <span class="range-val" id="budVal"></span></label>
+            <input type="range" id="p-budzet" name="budzet" min="500" max="20000" step="500" value="2000">
+          </div>
+          <div class="field" data-f="opis">
+            <label for="p-opis"><span data-i18n="f2.desc"></span> <span class="req">*</span></label>
+            <textarea id="p-opis" name="opis" data-i18n-ph="f2.desc.ph"></textarea>
+            <span class="err" data-i18n="f2.desc.err"></span>
+          </div>
+          <div class="btn-row">
+            <button class="btn" type="submit" data-i18n="f2.send"></button>
+            <button class="btn ghost" type="reset" data-i18n="btn.clear"></button>
+          </div>
+        </form>
+        <div class="out" id="outPonuda"><header data-i18n="out.req"></header><pre></pre></div>
+      </div>
+    </div>
+    <p class="note" data-i18n="note"></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Luka Cvoro — Oracle APEX &amp; PL/SQL Developer</span>
+    <a href="https://www.linkedin.com/in/luka-cvoro-3b2194197/" data-i18n="footer.link"></a>
+  </div>
+</footer>
+
+<script>
+/* ===================== PREVODI ===================== */
+const T = {
+sr:{
+ "nav.xp":"iskustvo","nav.stack":"tehnologije","nav.code":"kod","nav.contact":"kontakt",
+ "hero.eyebrow":"Oracle APEX & PL/SQL Developer · Beograd",
+ "hero.lede":"Gradim poslovne aplikacije tamo gde žive podaci — <strong>u Oracle bazi</strong>. APEX za ekran, <strong>PL/SQL i SQL</strong> za logiku, <strong>JavaScript i CSS</strong> kad standardno nije dovoljno. Put od junior PL/SQL developera preko Bosch-a i konsaltinga do APEX-a — <strong>5+ godina u struci</strong>, uz master studije softverskih informacionih tehnologija.",
+ "m.now":"trenutno:","m.focus":"fokus:","m.exp":"iskustvo:","m.exp.v":"od 2021.","m.loc":"lokacija:","m.loc.v":"Beograd",
+ "s1.title":"Iskustvo","s1.sub":"Od prvog junior posla 2021. do razvoja APEX aplikacija danas — svaka stanica je dodala po jedan sloj: baza, korporacija, konsalting, proizvod.",
+ "s2.title":"Tehnologije","s2.sub":"Biraj kategorije i minimalni nivo — upit se ispisuje sam, rezultat se menja odmah.",
+ "console.bar":"konzola · luka@stack.sql",
+ "ctl.cat":"Kategorija","ctl.search":"Pretraga po nazivu","ctl.search.ph":"npr. apex","ctl.lvl":"Minimalni nivo —",
+ "empty":"0 redova. Spusti minimalni nivo ili obriši pretragu.",
+ "a.type":"tip","a.for":"koristim za","a.since":"od",
+ "s3.title":"Isti zadatak, više jezika","s3.sub":"Pet kupaca sa najvećom potrošnjom. Isti rezultat — različiti alati, u zavisnosti gde se posao radi.",
+ "s4.title":"Kontakt","s4.sub":"Oba formulara imaju proveru polja. Umesto slanja na server, ispisuju INSERT koji bi nastao — dok se ne zakači backend.",
+ "f1.title":"Pošalji poruku","f1.hint":"Kratko pitanje, saradnja, ili samo pozdrav.",
+ "f1.name":"Ime i prezime","f1.name.err":"Upiši ime — bar dva znaka.",
+ "f.email.err":"Email nije ispravan. Fali @ ili domen.",
+ "f1.topic":"Tema","f1.topic.err":"Izaberi temu.",
+ "f1.msg":"Poruka","f1.msg.ph":"Opiši ukratko šta ti treba…","f1.msg.err":"Napiši bar 10 znakova.",
+ "f1.consent":"Slažem se da mi se odgovori na ovaj email.","f1.consent.err":"Bez ovoga ne mogu da ti odgovorim.",
+ "f1.send":"Pošalji poruku","btn.clear":"Očisti","out.msg":"upisano · poruke",
+ "f2.title":"Zatraži ponudu","f2.hint":"Detaljnije — da procena bude realna, a ne pogađanje.",
+ "f2.firm":"Firma ili projekat","f2.firm.err":"Upiši naziv.",
+ "f2.type":"Tip posla","f2.type.err":"Izaberi tip posla.",
+ "f2.tech":"Tehnologije","f2.tech.err":"Označi bar jednu tehnologiju.",
+ "f2.deadline":"Željeni rok","f2.deadline.err":"Datum je u prošlosti.",
+ "f2.budget":"Okvirni budžet —",
+ "f2.desc":"Šta treba da radi","f2.desc.ph":"Npr. APEX aplikacija za evidenciju naloga, Oracle baza, izveštaji…","f2.desc.err":"Napiši bar 20 znakova da procena ima smisla.",
+ "f2.send":"Pošalji zahtev","out.req":"upisano · zahtevi",
+ "note":"// Napomena: sajt je statičan. Ništa ne odlazi na server dok se ne zakači backend na submit događaj.",
+ "footer.link":"LinkedIn profil",
+ "row.ins":"-- 1 red upisan"
+},
+en:{
+ "nav.xp":"experience","nav.stack":"stack","nav.code":"code","nav.contact":"contact",
+ "hero.eyebrow":"Oracle APEX & PL/SQL Developer · Belgrade",
+ "hero.lede":"I build business applications where the data lives — <strong>in the Oracle database</strong>. APEX for the screen, <strong>PL/SQL and SQL</strong> for the logic, <strong>JavaScript and CSS</strong> when the standard isn't enough. From junior PL/SQL developer through Bosch and consulting to APEX — <strong>5+ years in the field</strong>, alongside a master's in software information technologies.",
+ "m.now":"currently:","m.focus":"focus:","m.exp":"experience:","m.exp.v":"since 2021","m.loc":"location:","m.loc.v":"Belgrade",
+ "s1.title":"Experience","s1.sub":"From the first junior job in 2021 to building APEX applications today — every stop added a layer: database, corporation, consulting, product.",
+ "s2.title":"Tech stack","s2.sub":"Pick categories and a minimum level — the query writes itself, the result updates instantly.",
+ "console.bar":"console · luka@stack.sql",
+ "ctl.cat":"Category","ctl.search":"Search by name","ctl.search.ph":"e.g. apex","ctl.lvl":"Minimum level —",
+ "empty":"0 rows. Lower the minimum level or clear the search.",
+ "a.type":"type","a.for":"used for","a.since":"since",
+ "s3.title":"Same task, different languages","s3.sub":"Top five customers by spend. Same result — different tools, depending on where the work happens.",
+ "s4.title":"Contact","s4.sub":"Both forms validate their fields. Instead of hitting a server, they print the INSERT that would result — until a backend is hooked up.",
+ "f1.title":"Send a message","f1.hint":"A quick question, a collaboration, or just a hello.",
+ "f1.name":"Full name","f1.name.err":"Enter your name — at least two characters.",
+ "f.email.err":"That email doesn't look right. Missing @ or domain.",
+ "f1.topic":"Topic","f1.topic.err":"Pick a topic.",
+ "f1.msg":"Message","f1.msg.ph":"Briefly describe what you need…","f1.msg.err":"Write at least 10 characters.",
+ "f1.consent":"I agree to receive a reply at this email.","f1.consent.err":"Without this I can't reply.",
+ "f1.send":"Send message","btn.clear":"Clear","out.msg":"inserted · messages",
+ "f2.title":"Request a quote","f2.hint":"More detail — so the estimate is real, not a guess.",
+ "f2.firm":"Company or project","f2.firm.err":"Enter a name.",
+ "f2.type":"Type of work","f2.type.err":"Choose the type of work.",
+ "f2.tech":"Technologies","f2.tech.err":"Check at least one technology.",
+ "f2.deadline":"Desired deadline","f2.deadline.err":"That date is in the past.",
+ "f2.budget":"Approximate budget —",
+ "f2.desc":"What it should do","f2.desc.ph":"E.g. an APEX app for order tracking, Oracle database, reports…","f2.desc.err":"Write at least 20 characters so the estimate makes sense.",
+ "f2.send":"Send request","out.req":"inserted · requests",
+ "note":"// Note: this site is static. Nothing goes to a server until a backend is hooked to the submit event.",
+ "footer.link":"LinkedIn profile",
+ "row.ins":"-- 1 row inserted"
+}};
+
+const TOPICS = {
+ sr:["Oracle APEX aplikacija","Baze podataka i PL/SQL","Web sajt ili aplikacija","Nešto drugo"],
+ en:["Oracle APEX application","Databases & PL/SQL","Website or web app","Something else"]
+};
+const TYPES = {
+ sr:["Nov projekat","Nadogradnja","Održavanje"],
+ en:["New project","Upgrade","Maintenance"]
+};
+const TECH_OPTS = ["Oracle APEX","PL/SQL","SQL","JavaScript","HTML/CSS","Python"];
+
+/* ===================== ISKUSTVO ===================== */
+const XP = [
+ {now:true, role:"Oracle APEX Developer", firm:"NETcom System — Novi Beograd",
+  when:{sr:"septembar 2025 — danas",en:"September 2025 — present"},
+  desc:{sr:"Razvoj poslovnih aplikacija u Oracle APEX-u od baze do ekrana: forme, interaktivni izveštaji, autorizacija i PL/SQL logika iza njih. Mesto gde se sve prethodno iskustvo — baza, korporativni procesi i konsalting — slilo u jednu ulogu.",
+        en:"Building business applications in Oracle APEX from the database to the screen: forms, interactive reports, authorization and the PL/SQL logic behind them. The place where all previous experience — database, corporate processes and consulting — merged into a single role."},
+  tags:["Oracle APEX","PL/SQL","SQL","HTML/CSS/JS"]},
+ {role:"Oracle Technical Consultant", firm:"Prointer ITSS — Beograd",
+  when:{sr:"jun 2025 — septembar 2025",en:"June 2025 — September 2025"},
+  desc:{sr:"Konsultantska uloga na Oracle tehnologijama: rad direktno sa klijentskim sistemima, analiza zahteva, razvoj APEX aplikacija i tehnička rešenja nad bazom. Kratka, ali intenzivna stanica koja je izoštrila rad sa naručiocima.",
+        en:"Consulting role on Oracle technologies: working directly with client systems, requirements analysis, APEX application development and technical solutions on top of the database. A short but intense stop that sharpened working with clients."},
+  tags:["Oracle APEX","Oracle","PL/SQL","HTML/CSS/JS",{sr:"konsalting",en:"consulting"}]},
+ {role:"Software Engineer", firm:"Bosch Digital Solutions / Bosch Srbija — Beograd",
+  when:{sr:"septembar 2022 — maj 2025",en:"September 2022 — May 2025"},
+  desc:{sr:"Skoro tri godine inženjerskog rada u globalnom korporativnom okruženju: razvoj i održavanje softverskih rešenja, PL/SQL logika u bazi, interne APEX aplikacije sa prilagođenim HTML/CSS/JS delovima, code review, rad po standardima i procesima velikog sistema, saradnja sa međunarodnim timovima. Najduža stanica — i ona koja je juniora pretvorila u samostalnog inženjera.",
+        en:"Almost three years of engineering in a global corporate environment: developing and maintaining software solutions, PL/SQL logic in the database, internal APEX applications with custom HTML/CSS/JS parts, code review, working by the standards and processes of a large organization, collaborating with international teams. The longest stop — the one that turned a junior into an independent engineer."},
+  tags:["software engineering","Oracle APEX","PL/SQL","SQL","HTML/CSS/JS","Git","agile"]},
+ {role:"Junior PL/SQL Developer", firm:{sr:"Fadata — softver za osiguranje",en:"Fadata — insurance software"},
+  when:{sr:"decembar 2021 — jul 2022",en:"December 2021 — July 2022"},
+  desc:{sr:"Razvoj u PL/SQL-u na INSIS platformi za osiguravajuće kuće: procedure, paketi i upiti nad velikim, ozbiljnim šemama podataka, uz prve APEX ekrane nad njima. Ovde je baza prestala da bude alat i postala specijalnost.",
+        en:"PL/SQL development on the INSIS platform for insurance companies: procedures, packages and queries over large, serious data schemas, plus the first APEX screens on top of them. This is where the database stopped being a tool and became a specialty."},
+  tags:["PL/SQL","Oracle APEX","Oracle","HTML/CSS/JS","insurance"]},
+ {role:"Junior Software Developer", firm:"Mega Computer Engineering — Beograd",
+  when:{sr:"mart 2021 — novembar 2021",en:"March 2021 — November 2021"},
+  desc:{sr:"Prvi razvojni posao: rad na aplikacijama i bazama pod mentorstvom, prve produkcione greške i prve ispravke. Ulazna tačka u profesionalni razvoj softvera.",
+        en:"First development job: working on applications and databases under mentorship, first production bugs and first fixes. The entry point into professional software development."},
+  tags:["SQL","HTML/CSS/JS",{sr:"razvoj",en:"development"},{sr:"početak karijere",en:"career start"}]}
+];
+
+const EDU = [
+ {lbl:{sr:"Master · 2022 — 2026",en:"Master's · 2022 — 2026"},
+  name:{sr:"Visoka tehnička škola strukovnih studija, Novi Sad (VTŠNS)",en:"Higher Education Technical School of Professional Studies, Novi Sad (VTSNS)"},
+  desc:{sr:"Master strukovne studije, smer informacione tehnologije — master inženjer softverskih informacionih tehnologija. Studije uporedo sa punim radnim vremenom u struci.",
+        en:"Master of applied studies, information technologies — master engineer of software information technologies. Studying alongside full-time work in the field."}},
+ {lbl:{sr:"Osnovne · 2017 — 2022",en:"Bachelor's · 2017 — 2022"},
+  name:{sr:"Visoka tehnička škola strukovnih studija, Novi Sad (VTŠNS)",en:"Higher Education Technical School of Professional Studies, Novi Sad (VTSNS)"},
+  desc:{sr:"Osnovne strukovne studije, smer informacione tehnologije — inženjer softverskih informacionih tehnologija (bachelor). Temelj: programiranje, baze podataka, web tehnologije.",
+        en:"Bachelor of applied studies, information technologies — engineer of software information technologies. The foundation: programming, databases, web technologies."}}
+];
+
+/* ===================== TEHNOLOGIJE ===================== */
+const TEH = [
+ {ime:"Oracle APEX", kat:"baze", nivo:5, od:2021,
+  tip:{sr:"low-code platforma",en:"low-code platform"},
+  opis:{sr:"Glavna alatka: poslovne aplikacije direktno nad Oracle bazom — forme, interaktivni izveštaji, autorizacija, REST izvori.",
+        en:"The main tool: business applications directly on top of the Oracle database — forms, interactive reports, authorization, REST sources."},
+  za:{sr:"poslovne aplikacije",en:"business applications"}},
+ {ime:"PL/SQL", kat:"baze", nivo:5, od:2021,
+  tip:{sr:"proceduralni SQL",en:"procedural SQL"},
+  opis:{sr:"Logika koja živi u bazi: paketi, procedure, kursori, okidači, obrada grešaka. Srce svake APEX aplikacije — specijalnost od Fadate naovamo.",
+        en:"Logic that lives in the database: packages, procedures, cursors, triggers, error handling. The heart of every APEX app — a specialty since Fadata."},
+  za:{sr:"paketi, procesi, validacije",en:"packages, processes, validations"}},
+ {ime:"SQL", kat:"baze", nivo:5, od:2021,
+  tip:{sr:"upitni jezik",en:"query language"},
+  opis:{sr:"Spojevi, agregacije, analitičke funkcije, optimizacija upita koji hrane izveštaje i ekrane.",
+        en:"Joins, aggregations, analytic functions, tuning the queries that feed reports and screens."},
+  za:{sr:"izveštaji, analiza, migracije",en:"reports, analysis, migrations"}},
+ {ime:"Oracle Database", kat:"baze", nivo:5, od:2021,
+  tip:{sr:"RDBMS",en:"RDBMS"},
+  opis:{sr:"Tabele, indeksi, sekvence, pogledi, prava pristupa — temelj na kom sve ostalo stoji.",
+        en:"Tables, indexes, sequences, views, access rights — the foundation everything else stands on."},
+  za:{sr:"produkcione baze",en:"production databases"}},
+ {ime:"JavaScript", kat:"frontend", nivo:4, od:2019,
+  tip:{sr:"programski jezik",en:"programming language"},
+  opis:{sr:"Dinamičke akcije u APEX-u i čist JS van njega: DOM, događaji, fetch, validacija formulara.",
+        en:"Dynamic actions in APEX and plain JS outside it: DOM, events, fetch, form validation."},
+  za:{sr:"APEX dinamika, interakcija",en:"APEX dynamics, interaction"}},
+ {ime:"HTML", kat:"frontend", nivo:4, od:2018,
+  tip:{sr:"označni jezik",en:"markup language"},
+  opis:{sr:"Semantika pre stila: ispravni elementi, pristupačne forme, čitljiva struktura šablona.",
+        en:"Semantics before style: correct elements, accessible forms, readable template structure."},
+  za:{sr:"struktura stranice",en:"page structure"}},
+ {ime:"CSS", kat:"frontend", nivo:4, od:2018,
+  tip:{sr:"stilski jezik",en:"stylesheet language"},
+  opis:{sr:"Prilagođavanje APEX tema i samostalni rasporedi: grid, flex, promenljive, responzivnost.",
+        en:"Customizing APEX themes and standalone layouts: grid, flex, variables, responsiveness."},
+  za:{sr:"APEX teme, izgled",en:"APEX themes, look & feel"}},
+ {ime:"Python", kat:"backend", nivo:3, od:2021,
+  tip:{sr:"programski jezik",en:"programming language"},
+  opis:{sr:"Skripte za obradu podataka, integracije i automatizaciju poslova oko baze.",
+        en:"Scripts for data processing, integrations and automating jobs around the database."},
+  za:{sr:"skripte, automatizacija",en:"scripts, automation"}},
+ {ime:"REST API", kat:"backend", nivo:5, od:2021,
+  tip:{sr:"arhitektura",en:"architecture"},
+  opis:{sr:"ORDS i spoljni servisi: izlaganje podataka iz baze i povezivanje APEX-a sa drugim sistemima.",
+        en:"ORDS and external services: exposing data from the database and connecting APEX to other systems."},
+  za:{sr:"ORDS, integracije",en:"ORDS, integrations"}},
+ {ime:"Git", kat:"alati", nivo:4, od:2020,
+  tip:{sr:"kontrola verzija",en:"version control"},
+  opis:{sr:"Grane, pregled izmena i istorija koja objašnjava zašto je nešto promenjeno — i za kod i za skripte baze.",
+        en:"Branches, change review and a history that explains why something changed — for both code and database scripts."},
+  za:{sr:"timski rad, verzije",en:"teamwork, versions"}},
+ {ime:"Linux / Bash", kat:"alati", nivo:3, od:2020,
+  tip:{sr:"okruženje",en:"environment"},
+  opis:{sr:"Rad na serveru: logovi, cron poslovi, prava pristupa, jednostavne skripte za održavanje.",
+        en:"Working on the server: logs, cron jobs, permissions, simple maintenance scripts."},
+  za:{sr:"server, cron",en:"server, cron"}},
+ {ime:"SQL Developer", kat:"alati", nivo:5, od:2021,
+  tip:{sr:"IDE",en:"IDE"},
+  opis:{sr:"Svakodnevni alat za rad sa bazom: upiti, debug PL/SQL-a, izvoz podataka, modelovanje.",
+        en:"The everyday database tool: queries, PL/SQL debugging, data export, modeling."},
+  za:{sr:"razvoj i debug",en:"development & debugging"}}
+];
+const KAT = [
+ {id:"baze", sr:"baze podataka", en:"databases"},
+ {id:"backend", sr:"backend", en:"backend"},
+ {id:"frontend", sr:"frontend", en:"frontend"},
+ {id:"alati", sr:"alati", en:"tools"}
+];
+
+/* ===================== PRIMERI KODA ===================== */
+const PRIMERI = {
+sr:{
+ "SQL":`SELECT k.naziv,
+       SUM(s.iznos) AS ukupno
+  FROM kupac k
+  JOIN stavka s ON s.kupac_id = k.id
+ WHERE s.datum >= DATE '2026-01-01'
+ GROUP BY k.naziv
+ ORDER BY ukupno DESC
+ FETCH FIRST 5 ROWS ONLY;`,
+ "PL/SQL":`CREATE OR REPLACE PROCEDURE top_kupci IS
+  CURSOR c_top IS
+    SELECT k.naziv, SUM(s.iznos) AS ukupno
+      FROM kupac k JOIN stavka s ON s.kupac_id = k.id
+     GROUP BY k.naziv
+     ORDER BY ukupno DESC
+     FETCH FIRST 5 ROWS ONLY;
+BEGIN
+  FOR r IN c_top LOOP
+    DBMS_OUTPUT.PUT_LINE(r.naziv || ' — ' || r.ukupno);
+  END LOOP;
+EXCEPTION
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('Greška: ' || SQLERRM);
+    RAISE;
+END top_kupci;`,
+ "APEX":`-- Izvor za interaktivni izveštaj (IR) u APEX-u:
+SELECT k.naziv,
+       SUM(s.iznos) AS ukupno,
+       -- link kolona ka detaljnoj stranici
+       APEX_PAGE.GET_URL(
+         p_page   => 12,
+         p_items  => 'P12_KUPAC_ID',
+         p_values => k.id
+       ) AS detalji
+  FROM kupac k
+  JOIN stavka s ON s.kupac_id = k.id
+ WHERE s.datum >= :P10_OD_DATUMA   -- vezano za page item
+ GROUP BY k.naziv, k.id
+ ORDER BY ukupno DESC;`,
+ "JavaScript":`// APEX dinamička akcija ili čist JS:
+const odgovor = await fetch("/ords/api/stavke?od=2026-01-01");
+const stavke = await odgovor.json();
+
+const zbir = new Map();
+for (const s of stavke.items) {
+  zbir.set(s.kupac, (zbir.get(s.kupac) ?? 0) + s.iznos);
+}
+
+const top5 = [...zbir]
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 5);
+
+console.table(top5);`,
+ "Python":`import pandas as pd
+
+stavke = pd.read_sql(
+    "SELECT kupac, iznos FROM stavka WHERE datum >= '2026-01-01'",
+    veza,
+)
+
+top5 = (
+    stavke.groupby("kupac")["iznos"]
+          .sum()
+          .nlargest(5)
+)
+
+print(top5.to_string())`,
+ "Git":`git switch -c izvestaj/top-kupci
+git add sql/top_kupci.sql
+git commit -m "Dodat izveštaj o pet najvećih kupaca"
+git push -u origin izvestaj/top-kupci
+
+# pregled šta se promenilo pre spajanja
+git diff main...HEAD --stat`
+},
+en:{
+ "SQL":`SELECT c.name,
+       SUM(i.amount) AS total
+  FROM customer c
+  JOIN item i ON i.customer_id = c.id
+ WHERE i.item_date >= DATE '2026-01-01'
+ GROUP BY c.name
+ ORDER BY total DESC
+ FETCH FIRST 5 ROWS ONLY;`,
+ "PL/SQL":`CREATE OR REPLACE PROCEDURE top_customers IS
+  CURSOR c_top IS
+    SELECT c.name, SUM(i.amount) AS total
+      FROM customer c JOIN item i ON i.customer_id = c.id
+     GROUP BY c.name
+     ORDER BY total DESC
+     FETCH FIRST 5 ROWS ONLY;
+BEGIN
+  FOR r IN c_top LOOP
+    DBMS_OUTPUT.PUT_LINE(r.name || ' — ' || r.total);
+  END LOOP;
+EXCEPTION
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+    RAISE;
+END top_customers;`,
+ "APEX":`-- Source for an Interactive Report (IR) in APEX:
+SELECT c.name,
+       SUM(i.amount) AS total,
+       -- link column to the detail page
+       APEX_PAGE.GET_URL(
+         p_page   => 12,
+         p_items  => 'P12_CUSTOMER_ID',
+         p_values => c.id
+       ) AS details
+  FROM customer c
+  JOIN item i ON i.customer_id = c.id
+ WHERE i.item_date >= :P10_FROM_DATE   -- bound to a page item
+ GROUP BY c.name, c.id
+ ORDER BY total DESC;`,
+ "JavaScript":`// APEX dynamic action or plain JS:
+const response = await fetch("/ords/api/items?from=2026-01-01");
+const items = await response.json();
+
+const totals = new Map();
+for (const i of items.items) {
+  totals.set(i.customer, (totals.get(i.customer) ?? 0) + i.amount);
+}
+
+const top5 = [...totals]
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 5);
+
+console.table(top5);`,
+ "Python":`import pandas as pd
+
+items = pd.read_sql(
+    "SELECT customer, amount FROM item WHERE item_date >= '2026-01-01'",
+    conn,
+)
+
+top5 = (
+    items.groupby("customer")["amount"]
+         .sum()
+         .nlargest(5)
+)
+
+print(top5.to_string())`,
+ "Git":`git switch -c report/top-customers
+git add sql/top_customers.sql
+git commit -m "Add top five customers report"
+git push -u origin report/top-customers
+
+# review what changed before merging
+git diff main...HEAD --stat`
+}};
+
+/* ===================== STANJE ===================== */
+let lang = "sr";
+let aktivne = [], pretraga = "", minNivo = 1, curTab = "SQL";
+
+const $ = s => document.querySelector(s);
+const t = k => T[lang][k] ?? k;
+const pick = v => (typeof v === "object" && v !== null && !Array.isArray(v)) ? v[lang] : v;
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const sql = v => String(v).replace(/'/g,"''");
+const emailOk = v => /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v);
+
+/* ===================== RENDER: STATIČKI TEKST ===================== */
+function renderStatic(){
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{ el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll("[data-i18n-html]").forEach(el=>{ el.innerHTML = t(el.dataset.i18nHtml); });
+  document.querySelectorAll("[data-i18n-ph]").forEach(el=>{ el.placeholder = t(el.dataset.i18nPh); });
+  $("#langBtn").textContent = lang === "sr" ? "EN" : "SR";
+}
+
+/* ===================== RENDER: ISKUSTVO ===================== */
+function renderXP(){
+  $("#xpList").innerHTML = XP.map(x=>`
+    <li${x.now?' class="now"':''}>
+      <div class="role">${esc(x.role)}</div>
+      <div class="firm">${esc(pick(x.firm))}</div>
+      <div class="when">${esc(pick(x.when))}</div>
+      <p>${esc(pick(x.desc))}</p>
+      <div class="tags">${x.tags.map(tg=>`<span>${esc(pick(tg))}</span>`).join("")}</div>
+    </li>`).join("");
+  $("#eduList").innerHTML = EDU.map(e=>`
+    <div class="edu-card">
+      <div class="lbl">${esc(pick(e.lbl))}</div>
+      <h3>${esc(pick(e.name))}</h3>
+      <p>${esc(pick(e.desc))}</p>
+    </div>`).join("");
+}
+
+/* ===================== RENDER: TEHNOLOGIJE ===================== */
+function renderChips(){
+  const box = $("#chips"); box.innerHTML = "";
+  KAT.forEach(k=>{
+    const b = document.createElement("button");
+    b.type="button"; b.className="chip"; b.textContent = k[lang];
+    b.setAttribute("aria-pressed", aktivne.includes(k.id) ? "true" : "false");
+    b.addEventListener("click",()=>{
+      const on = aktivne.includes(k.id);
+      aktivne = on ? aktivne.filter(x=>x!==k.id) : [...aktivne,k.id];
+      b.setAttribute("aria-pressed", on?"false":"true");
+      renderGrid();
+    });
+    box.appendChild(b);
+  });
+}
+function filtrirano(){
+  return TEH.filter(x =>
+    (!aktivne.length || aktivne.includes(x.kat)) &&
+    x.nivo >= minNivo &&
+    (!pretraga || x.ime.toLowerCase().includes(pretraga.toLowerCase()))
+  ).sort((a,b)=> b.nivo-a.nivo || a.ime.localeCompare(b.ime));
+}
+function rows(n){
+  if(lang==="en") return `${n} ${n===1?"row":"rows"}`;
+  return `${n} ${n===1?"red":(n>=2&&n<=4?"reda":"redova")}`;
+}
+function upit(n){
+  const w = [];
+  if(aktivne.length) w.push(`kategorija <span class="kw">IN</span> (${aktivne.map(a=>`<span class="str">'${a}'</span>`).join(", ")})`);
+  if(minNivo>1) w.push(`nivo <span class="kw">&gt;=</span> ${minNivo}`);
+  if(pretraga) w.push(`naziv <span class="kw">LIKE</span> <span class="str">'%${esc(pretraga)}%'</span>`);
+  let s = `<span class="kw">SELECT</span> naziv, kategorija, nivo\n  <span class="kw">FROM</span> luka.stack`;
+  if(w.length) s += `\n <span class="kw">WHERE</span> ` + w.join(`\n   <span class="kw">AND</span> `);
+  s += `\n <span class="kw">ORDER BY</span> nivo <span class="kw">DESC</span>;\n<span class="cmt">-- ${rows(n)}</span>`;
+  return s;
+}
+const io = new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("is-in"); io.unobserve(e.target); } });
+},{threshold:.12});
+function renderGrid(){
+  const lista = filtrirano();
+  $("#query").innerHTML = upit(lista.length);
+  const grid = $("#grid"); grid.innerHTML = "";
+  $("#empty").hidden = lista.length > 0;
+  const katName = id => (KAT.find(k=>k.id===id)||{})[lang] || id;
+  lista.forEach((x,i)=>{
+    const el = document.createElement("article");
+    el.className="card";
+    el.style.transitionDelay = Math.min(i*35,280)+"ms";
+    el.innerHTML = `
+      <div class="card-top">
+        <h3>${esc(x.ime)}</h3>
+        <span class="badge">${esc(katName(x.kat))}</span>
+      </div>
+      <p>${esc(pick(x.opis))}</p>
+      <ul class="attrs">
+        <li><span>${t("a.type")}</span> ${esc(pick(x.tip))}</li>
+        <li><span>${t("a.for")}</span> ${esc(pick(x.za))}</li>
+        <li><span>${t("a.since")}</span> ${x.od}${lang==="sr"?".":""}</li>
+      </ul>
+      <div class="meter" role="img" aria-label="${lang==="sr"?`Nivo ${x.nivo} od 5`:`Level ${x.nivo} of 5`}">
+        ${[1,2,3,4,5].map(n=>`<i class="${n<=x.nivo?"f":""}"></i>`).join("")}
+      </div>`;
+    grid.appendChild(el);
+    io.observe(el);
+  });
+}
+
+/* ===================== RENDER: KOD ===================== */
+function renderTabs(){
+  const tabsEl = $("#tabs"); tabsEl.innerHTML = "";
+  Object.keys(PRIMERI[lang]).forEach(ime=>{
+    const b=document.createElement("button");
+    b.type="button"; b.className="tab"; b.setAttribute("role","tab"); b.textContent=ime;
+    b.setAttribute("aria-selected", ime===curTab?"true":"false");
+    b.addEventListener("click",()=>{
+      curTab = ime;
+      tabsEl.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected","false"));
+      b.setAttribute("aria-selected","true");
+      $("#code").textContent = PRIMERI[lang][ime];
+    });
+    tabsEl.appendChild(b);
+  });
+  $("#code").textContent = PRIMERI[lang][curTab];
+}
+
+/* ===================== RENDER: FORME (dinamički delovi) ===================== */
+function renderFormOpts(){
+  const sel = $("#k-tema");
+  const prev = sel.selectedIndex;
+  sel.innerHTML = `<option value="">${lang==="sr"?"— izaberi —":"— choose —"}</option>` +
+    TOPICS[lang].map(o=>`<option>${esc(o)}</option>`).join("");
+  if(prev>0) sel.selectedIndex = prev;
+
+  const tipBox = $("#p-tip");
+  const checkedTip = tipBox.querySelector("input:checked");
+  const tipIdx = checkedTip ? [...tipBox.querySelectorAll("input")].indexOf(checkedTip) : -1;
+  tipBox.innerHTML = TYPES[lang].map((v,i)=>`<label class="opt"><input type="radio" name="tip" value="${esc(v)}"${i===tipIdx?" checked":""}> ${esc(v)}</label>`).join("");
+
+  const tehBox = $("#p-teh");
+  const checked = new Set([...tehBox.querySelectorAll("input:checked")].map(i=>i.value));
+  tehBox.innerHTML = TECH_OPTS.map((v,i)=>`<label class="opt"><input type="checkbox" name="teh" value="${esc(v)}" id="teh${i}"${checked.has(v)?" checked":""}> ${esc(v)}</label>`).join("");
+
+  updateBudget();
+}
+function updateBudget(){
+  const v = Number($("#p-budzet").value);
+  $("#budVal").textContent = v.toLocaleString(lang==="sr"?"sr-RS":"en-GB") + " €";
+}
+
+/* ===================== JEZIK ===================== */
+function setLang(l){
+  lang = l;
+  renderStatic(); renderXP(); renderChips(); renderGrid(); renderTabs(); renderFormOpts();
+}
+$("#langBtn").addEventListener("click", ()=> setLang(lang==="sr"?"en":"sr"));
+
+/* ===================== FILTER DOGAĐAJI ===================== */
+$("#search").addEventListener("input", e=>{ pretraga = e.target.value.trim(); renderGrid(); });
+$("#lvl").addEventListener("input", e=>{ minNivo = +e.target.value; $("#lvlVal").textContent = minNivo; renderGrid(); });
+$("#p-budzet").addEventListener("input", updateBudget);
+
+/* ===================== VALIDACIJA ===================== */
+const polje = (form,ime) => form.querySelector(`.field[data-f="${ime}"]`);
+function oznaci(form,ime,lose){
+  const f = polje(form,ime); if(!f) return;
+  f.classList.toggle("bad",lose);
+  const inp = f.querySelector("input,select,textarea");
+  if(inp) inp.setAttribute("aria-invalid", lose ? "true" : "false");
+}
+
+const f1 = $("#formKontakt");
+f1.addEventListener("submit", e=>{
+  e.preventDefault();
+  const d = {
+    ime: f1.ime.value.trim(), email: f1.email.value.trim(),
+    tema: f1.tema.value, poruka: f1.poruka.value.trim(), sag: $("#k-sag").checked
+  };
+  const g = { ime:d.ime.length<2, email:!emailOk(d.email), tema:!d.tema, poruka:d.poruka.length<10, saglasnost:!d.sag };
+  Object.entries(g).forEach(([k,v])=>oznaci(f1,k,v));
+  const prvo = Object.keys(g).find(k=>g[k]);
+  if(prvo){ polje(f1,prvo).querySelector("input,select,textarea").focus(); $("#outKontakt").classList.remove("show"); return; }
+  const cols = lang==="sr" ? "poruka (ime, email, tema, poruka, primljeno)" : "message (name, email, topic, body, received_at)";
+  $("#outKontakt").querySelector("pre").textContent =
+`INSERT INTO ${cols}
+VALUES ('${sql(d.ime)}',
+        '${sql(d.email)}',
+        '${sql(d.tema)}',
+        '${sql(d.poruka)}',
+        TIMESTAMP '${new Date().toISOString().slice(0,19).replace("T"," ")}');
+COMMIT;
+${t("row.ins")}`;
+  $("#outKontakt").classList.add("show");
+  $("#outKontakt").scrollIntoView({block:"nearest",behavior:"smooth"});
+});
+f1.addEventListener("reset", ()=>{
+  $("#outKontakt").classList.remove("show");
+  f1.querySelectorAll(".field").forEach(f=>f.classList.remove("bad"));
+});
+
+const f2 = $("#formPonuda");
+f2.addEventListener("submit", e=>{
+  e.preventDefault();
+  const teh = [...f2.querySelectorAll('input[name="teh"]:checked')].map(i=>i.value);
+  const tip = f2.querySelector('input[name="tip"]:checked');
+  const d = {
+    firma: f2.firma.value.trim(), email: f2.email.value.trim(),
+    tip: tip ? tip.value : "", teh, rok: f2.rok.value,
+    budzet: f2.budzet.value, opis: f2.opis.value.trim()
+  };
+  const danas = new Date().toISOString().slice(0,10);
+  const g = { firma:d.firma.length<2, email:!emailOk(d.email), tip:!d.tip,
+              tehnologije:!teh.length, rok:!!d.rok && d.rok<danas, opis:d.opis.length<20 };
+  Object.entries(g).forEach(([k,v])=>oznaci(f2,k,v));
+  const prvo = Object.keys(g).find(k=>g[k]);
+  if(prvo){
+    const el = polje(f2,prvo).querySelector("input,select,textarea");
+    if(el) el.focus();
+    $("#outPonuda").classList.remove("show"); return;
+  }
+  const cols = lang==="sr" ? "zahtev (firma, email, tip, tehnologije, rok, budzet_eur, opis)"
+                           : "request (company, email, work_type, technologies, deadline, budget_eur, description)";
+  $("#outPonuda").querySelector("pre").textContent =
+`INSERT INTO ${cols}
+VALUES ('${sql(d.firma)}',
+        '${sql(d.email)}',
+        '${sql(d.tip)}',
+        '${sql(d.teh.join(", "))}',
+        ${d.rok ? `DATE '${d.rok}'` : "NULL"},
+        ${d.budzet},
+        '${sql(d.opis)}');
+COMMIT;
+${t("row.ins")}`;
+  $("#outPonuda").classList.add("show");
+  $("#outPonuda").scrollIntoView({block:"nearest",behavior:"smooth"});
+});
+f2.addEventListener("reset", ()=>{
+  $("#outPonuda").classList.remove("show");
+  f2.querySelectorAll(".field").forEach(f=>f.classList.remove("bad"));
+  setTimeout(updateBudget,0);
+});
+
+document.querySelectorAll("form").forEach(f=>{
+  f.addEventListener("input", e=>{
+    const fld = e.target.closest(".field");
+    if(fld) fld.classList.remove("bad");
+  });
+});
+
+/* ===================== START ===================== */
+setLang("sr");
+</script>
+</body>
+</html>
