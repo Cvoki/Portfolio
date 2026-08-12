@@ -185,6 +185,32 @@ textarea{resize:vertical;min-height:104px;line-height:1.55}
 .out header{padding:9px 14px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
 .out pre{margin:0;padding:16px;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:var(--ink);overflow-x:auto;white-space:pre-wrap;word-break:break-word}
 
+/* ---------- studija slucaja ---------- */
+.case{border:1px solid var(--line);background:var(--deep);border-radius:var(--radius);overflow:hidden}
+.case-head{display:flex;align-items:flex-start;justify-content:space-between;gap:22px;flex-wrap:wrap;
+  padding:26px clamp(20px,3vw,30px);border-bottom:1px solid var(--line);background:var(--panel)}
+.case-head h3{font-size:clamp(21px,3vw,28px);line-height:1.15}
+.case-meta{margin:7px 0 0;font-family:var(--mono);font-size:12.5px;color:var(--muted);letter-spacing:.03em}
+.case-stat{text-align:right;flex:none}
+.case-stat b{display:block;font-family:var(--display);font-weight:800;font-size:clamp(38px,6vw,54px);
+  line-height:1;color:var(--amber);letter-spacing:-.03em}
+.case-stat span{display:block;margin-top:5px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);max-width:190px}
+@media(max-width:560px){.case-stat{text-align:left}.case-stat span{max-width:none}}
+.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}
+@media(max-width:760px){.case-grid{grid-template-columns:1fr}}
+.case-block{background:var(--deep);padding:24px clamp(20px,3vw,30px)}
+.case-lbl{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--amber);margin-bottom:11px}
+.case-block p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.65}
+.case-block ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.case-block li{position:relative;padding-left:18px;color:var(--muted);font-size:14.5px;line-height:1.55}
+.case-block li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;
+  background:rgba(240,169,59,.5)}
+.case-block li b{color:var(--ink);font-weight:600}
+.case-note{margin:0;padding:15px clamp(20px,3vw,30px);border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.02em}
+
 /* ---------- avatar u hero ---------- */
 .hero-id{display:flex;align-items:center;gap:clamp(16px,3vw,28px);flex-wrap:wrap}
 .avatar{width:clamp(84px,11vw,120px);height:clamp(84px,11vw,120px);border-radius:50%;
@@ -292,6 +318,7 @@ footer a:hover{color:var(--ink)}
   <div class="wrap">
     <a class="brand" href="#top">luka<b>.</b>cvoro</a>
     <a class="lnk" href="#iskustvo" data-i18n="nav.xp"></a>
+    <a class="lnk" href="#slucaj" data-i18n="nav.case"></a>
     <a class="lnk" href="#stack" data-i18n="nav.stack"></a>
     <a class="lnk" href="#projekti" data-i18n="nav.projects"></a>
     <a class="lnk" href="#kod" data-i18n="nav.code"></a>
@@ -333,10 +360,54 @@ footer a:hover{color:var(--ink)}
   </div>
 </section>
 
-<section id="stack">
+<section id="slucaj">
   <div class="wrap">
     <div class="sec-head">
       <span class="num">02</span>
+      <h2 data-i18n="cs.title"></h2>
+      <p data-i18n="cs.sub"></p>
+    </div>
+
+    <article class="case">
+      <header class="case-head">
+        <div>
+          <h3 data-i18n="cs.name"></h3>
+          <p class="case-meta" data-i18n="cs.meta"></p>
+        </div>
+        <div class="case-stat">
+          <b>90%</b>
+          <span data-i18n="cs.stat"></span>
+        </div>
+      </header>
+
+      <div class="case-grid">
+        <div class="case-block">
+          <span class="case-lbl" data-i18n="cs.b1"></span>
+          <p data-i18n="cs.t1"></p>
+        </div>
+        <div class="case-block">
+          <span class="case-lbl" data-i18n="cs.b2"></span>
+          <ul id="csDid"></ul>
+        </div>
+        <div class="case-block">
+          <span class="case-lbl" data-i18n="cs.b3"></span>
+          <p data-i18n-html="cs.t3"></p>
+        </div>
+        <div class="case-block">
+          <span class="case-lbl" data-i18n="cs.b4"></span>
+          <p data-i18n="cs.t4"></p>
+        </div>
+      </div>
+
+      <p class="case-note" data-i18n="cs.nda"></p>
+    </article>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="num">03</span>
       <h2 data-i18n="s2.title"></h2>
       <p data-i18n="s2.sub"></p>
     </div>
@@ -370,7 +441,7 @@ footer a:hover{color:var(--ink)}
 <section id="projekti">
   <div class="wrap">
     <div class="sec-head">
-      <span class="num">03</span>
+      <span class="num">04</span>
       <h2 data-i18n="s5.title"></h2>
       <p data-i18n="s5.sub"></p>
     </div>
@@ -387,7 +458,7 @@ footer a:hover{color:var(--ink)}
 <section id="kod">
   <div class="wrap">
     <div class="sec-head">
-      <span class="num">04</span>
+      <span class="num">05</span>
       <h2 data-i18n="s3.title"></h2>
       <p data-i18n="s3.sub"></p>
     </div>
@@ -399,7 +470,7 @@ footer a:hover{color:var(--ink)}
 <section id="kontakt">
   <div class="wrap">
     <div class="sec-head">
-      <span class="num">05</span>
+      <span class="num">06</span>
       <h2 data-i18n="s4.title"></h2>
       <p data-i18n="s4.sub"></p>
     </div>
@@ -595,6 +666,20 @@ sr:{
  "dp.aria":"Izaberi datum",
  "cv":"Preuzmi CV",
  "nav.projects":"projekti",
+ "nav.case":"studija slučaja",
+ "cs.title":"Studija slučaja",
+ "cs.sub":"Jedan projekat izbliza — šta je bio problem, šta smo uradili i šta se zaista promenilo.",
+ "cs.name":"redLake · redmesh · Bosch Data Marketplace",
+ "cs.meta":"Bosch Digital Solutions · 2022—2025 · Oracle APEX, PL/SQL",
+ "cs.stat":"kraće čekanje na pristup podacima",
+ "cs.b1":"Situacija",
+ "cs.t1":"U velikoj kompaniji podaci postoje, ali su rasuti po timovima. Ko ih traži, šalje mejl, čeka odobrenje, pa opet čeka. Zadatak je bio napraviti interno mesto gde se skupovi podataka nude i naručuju kao proizvod. Bio sam na projektu od prvog dana i ostao kroz tri njegova oblika — redLake service portal, redmesh service portal, pa redmesh Data Hub.",
+ "cs.b2":"Šta smo radili",
+ "cs.b3":"Rezultat",
+ "cs.t3":"Vreme čekanja na pristup podacima skraćeno je <b>i do 90%</b> — zahtev je iz mejlova i ručnih odobrenja prešao u samouslužni tok. Platforma je kasnije proširena i na servise susednog tima, čime je ponuda podignuta na Alliance nivo.",
+ "cs.b4":"Šta sam naučio",
+ "cs.t4":"Da ono što izgleda kao problem performansi često nije problem koda nego procesa. Nijedan upit se nije mogao ubrzati toliko koliko je vredelo izbaciti čekanje na tuđe odobrenje. Drugo — kad proizvod tri puta promeni ime i oblik, dobro postavljena baza je jedino što preživi sve tri verzije.",
+ "cs.nda":"// Detalji klijenata i podataka izostavljeni su zbog ugovora o poverljivosti.",
  "s5.title":"Projekti sa GitHub-a",
  "s5.sub":"Javni repozitorijumi, povučeni uživo sa mog GitHub naloga. Poslovni projekti su pod NDA, pa ovde stoji ono što je moje.",
  "s5.all":"Svi repozitorijumi",
@@ -642,6 +727,20 @@ en:{
  "dp.aria":"Choose a date",
  "cv":"Download CV",
  "nav.projects":"projects",
+ "nav.case":"case study",
+ "cs.title":"Case study",
+ "cs.sub":"One project up close — what the problem was, what we did, and what actually changed.",
+ "cs.name":"redLake · redmesh · Bosch Data Marketplace",
+ "cs.meta":"Bosch Digital Solutions · 2022—2025 · Oracle APEX, PL/SQL",
+ "cs.stat":"shorter wait for data access",
+ "cs.b1":"The situation",
+ "cs.t1":"In a large company the data exists, but it's scattered across teams. Whoever needs it sends an email, waits for approval, then waits again. The task was to build an internal place where datasets are offered and ordered like a product. I was on the project from day one and stayed through three of its forms — redLake service portal, redmesh service portal, then redmesh Data Hub.",
+ "cs.b2":"What we did",
+ "cs.b3":"The result",
+ "cs.t3":"Waiting time for data access was cut by <b>up to 90%</b> — requests moved out of emails and manual approvals into a self-service flow. The platform later took on a neighbouring team's services, raising the offering to Alliance level.",
+ "cs.b4":"What I took from it",
+ "cs.t4":"That what looks like a performance problem is often a process problem, not a code one. No query could be tuned enough to match what was gained by removing the wait for someone else's approval. And that when a product changes its name and shape three times, a well-designed database is the one thing that survives all three versions.",
+ "cs.nda":"// Client and data specifics are omitted under a confidentiality agreement.",
  "s5.title":"Projects on GitHub",
  "s5.sub":"Public repositories, pulled live from my GitHub account. Work projects are under NDA, so what's here is my own.",
  "s5.all":"All repositories",
@@ -718,8 +817,8 @@ const XP = [
   bul:[
    {sr:"<b>redmesh DataHub</b> i <b>redLake service portal</b> — Bosch Data Marketplace građen od nule u Oracle APEX-u i PL/SQL-u, uz učešće u arhitekturi od prvog dana.",
     en:"<b>redmesh DataHub</b> and <b>redLake service portal</b> — the Bosch Data Marketplace built from scratch in Oracle APEX and PL/SQL, contributing to the architecture from day one."},
-   {sr:"Optimizacija koja je <b>ubrzala sistem za oko 90%</b> — kroz prepravku upita, indekse i logiku prebačenu u bazu.",
-    en:"Optimization that made the system roughly <b>90% faster</b> — through query rewrites, indexing and moving logic into the database."},
+   {sr:"Rad na funkcionalnostima platforme koja je vreme čekanja na pristup podacima skratila <b>i do 90%</b> — zahtev je iz mejlova i ručnih odobrenja prešao u samouslužni tok.",
+    en:"Worked on the platform features that cut waiting time for data access by <b>up to 90%</b> — requests moved out of emails and manual approvals into a self-service flow."},
    {sr:"Izgradnja kompletne e-commerce platforme za Bosch, sa naglaskom na upravljanje podacima.",
     en:"Contributed to building a comprehensive e-commerce platform for Bosch, enhancing data management capabilities."},
    {sr:"Saradnja sa međunarodnim timovima na integraciji i besprekornom radu aplikacija, uz code review i Jira tok rada.",
@@ -1131,6 +1230,23 @@ function renderXP(){
 }
 
 
+
+/* ===================== STUDIJA SLUCAJA ===================== */
+const CS_DID = [
+ {sr:"Građenje aplikacije u <b>Oracle APEX-u</b> od prazne baze — katalog skupova podataka, naručivanje pristupa, odobrenja i praćenje statusa.",
+  en:"Building the application in <b>Oracle APEX</b> from an empty database — dataset catalogue, access ordering, approvals and status tracking."},
+ {sr:"<b>PL/SQL paketi</b> za celu poslovnu logiku: tok zahteva, pravila pristupa, obaveštenja i dnevnik promena.",
+  en:"<b>PL/SQL packages</b> for all the business logic: request flow, access rules, notifications and change logging."},
+ {sr:"Model podataka koji je preživeo tri verzije proizvoda — od <b>redLake</b> portala do <b>redmesh Data Hub-a</b>.",
+  en:"A data model that survived three versions of the product — from the <b>redLake</b> portal to the <b>redmesh Data Hub</b>."},
+ {sr:"Rad u međunarodnom timu: code review, Jira, testiranje API-ja kroz Postman i Swagger.",
+  en:"Working in an international team: code review, Jira, API testing through Postman and Swagger."}
+];
+function renderCase(){
+  const box = document.getElementById("csDid");
+  if(box) box.innerHTML = CS_DID.map(x=>`<li>${pick(x)}</li>`).join("");
+}
+
 /* ===================== PROJEKTI (GitHub API) ===================== */
 const GH_USER = "Cvoki";
 let ghRepos = null;      // null = jos nije ucitano, [] = nema, false = greska
@@ -1388,7 +1504,7 @@ function updateBudget(){
 /* ===================== JEZIK ===================== */
 function setLang(l){
   lang = l;
-  renderStatic(); renderXP(); renderChips(); renderGrid(); renderTabs(); renderFormOpts(); dpRefresh(); renderRepos();
+  renderStatic(); renderXP(); renderChips(); renderGrid(); renderTabs(); renderFormOpts(); dpRefresh(); renderRepos(); renderCase();
 }
 $("#langBtn").addEventListener("click", ()=> setLang(lang==="sr"?"en":"sr"));
 
