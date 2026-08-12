@@ -21,6 +21,57 @@
 <meta name="twitter:description" content="Poslovne aplikacije nad Oracle bazom. APEX, PL/SQL, SQL, JavaScript.">
 <meta name="twitter:image" content="https://portfoliolukacvoro.netlify.app/og.png">
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Luka Cvoro",
+  "alternateName": "Лука Чворо",
+  "url": "https://portfoliolukacvoro.netlify.app/",
+  "image": "https://portfoliolukacvoro.netlify.app/luka.jpg",
+  "email": "mailto:lukac95@gmail.com",
+  "jobTitle": "Oracle APEX & PL/SQL Developer",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "NETcom System"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Beograd",
+    "addressCountry": "RS"
+  },
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "Visoka tehnička škola strukovnih studija u Novom Sadu"
+  },
+  "knowsAbout": [
+    "Oracle APEX",
+    "PL/SQL",
+    "SQL",
+    "Oracle Database",
+    "REST API",
+    "JavaScript",
+    "HTML",
+    "CSS",
+    "Python",
+    "Git"
+  ],
+  "knowsLanguage": [
+    {
+      "@type": "Language",
+      "name": "Serbian"
+    },
+    {
+      "@type": "Language",
+      "name": "English"
+    }
+  ],
+  "sameAs": [
+    "https://www.linkedin.com/in/luka-cvoro-3b2194197/",
+    "https://github.com/Cvoki"
+  ]
+}
+</script>
 <meta name="theme-color" content="#07161d">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%2307161d'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='bold' fill='%23f0a93b' text-anchor='middle'%3ELC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -184,6 +235,22 @@ textarea{resize:vertical;min-height:104px;line-height:1.55}
 .out.show{display:block}
 .out header{padding:9px 14px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
 .out pre{margin:0;padding:16px;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:var(--ink);overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+
+/* ---------- aktivna sekcija u navigaciji ---------- */
+.nav a.lnk{position:relative;padding-bottom:3px}
+.nav a.lnk::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;
+  background:var(--amber);transition:right .28s var(--ease,cubic-bezier(.2,.7,.3,1))}
+.nav a.lnk.on{color:var(--amber)}
+.nav a.lnk.on::after{right:0}
+
+/* ---------- anchor linkovi na naslovima ---------- */
+.sec-head h2{position:relative}
+.anchor{margin-left:10px;font-family:var(--mono);font-size:.5em;font-weight:400;color:var(--line);
+  text-decoration:none;opacity:0;transition:opacity .2s,color .2s;vertical-align:middle}
+.sec-head:hover .anchor{opacity:1}
+.anchor:hover{color:var(--amber)}
+.anchor:focus-visible{opacity:1}
+@media(hover:none){.anchor{opacity:.45}}
 
 /* ---------- studija slucaja ---------- */
 .case{border:1px solid var(--line);background:var(--deep);border-radius:var(--radius);overflow:hidden}
@@ -1164,6 +1231,7 @@ function renderStatic(){
   document.querySelectorAll("[data-i18n-ph]").forEach(el=>{ el.placeholder = t(el.dataset.i18nPh); });
   document.querySelectorAll("[data-i18n-aria]").forEach(el=>{ el.setAttribute("aria-label", t(el.dataset.i18nAria)); });
   $("#langBtn").textContent = lang === "sr" ? "EN" : "SR";
+  initAnchors();
 }
 
 /* ===================== RENDER: ISKUSTVO ===================== */
@@ -1198,6 +1266,65 @@ function renderXP(){
 }
 
 
+
+
+/* ===================== NAVIGACIJA: aktivna sekcija ===================== */
+function initScrollSpy(){
+  const linkovi = [...document.querySelectorAll('.nav a.lnk[href^="#"]')];
+  const sekcije = linkovi
+    .map(a => ({ a, el: document.querySelector(a.getAttribute("href")) }))
+    .filter(x => x.el);
+  if(!sekcije.length) return;
+
+  const visinaNav = 58;
+  let tiket = null;
+
+  function osvezi(){
+    tiket = null;
+    const y = window.scrollY + visinaNav + 24;
+    let tekuca = null;
+    for(const s of sekcije){
+      if(s.el.offsetTop <= y) tekuca = s;
+    }
+    // na dnu strane uvijek istakni posljednju sekciju
+    if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 4){
+      tekuca = sekcije[sekcije.length-1];
+    }
+    sekcije.forEach(s=>{
+      const on = s === tekuca;
+      s.a.classList.toggle("on", on);
+      if(on) s.a.setAttribute("aria-current","true");
+      else s.a.removeAttribute("aria-current");
+    });
+  }
+
+  window.addEventListener("scroll", ()=>{ if(!tiket) tiket = requestAnimationFrame(osvezi); }, {passive:true});
+  window.addEventListener("resize", osvezi);
+  osvezi();
+}
+
+/* ===================== ANCHOR LINKOVI NA NASLOVIMA ===================== */
+function initAnchors(){
+  document.querySelectorAll("section[id] .sec-head h2").forEach(h=>{
+    if(h.querySelector(".anchor")) return;
+    const id = h.closest("section").id;
+    const a = document.createElement("a");
+    a.className = "anchor";
+    a.href = "#" + id;
+    a.textContent = "#";
+    a.setAttribute("aria-hidden","true");
+    a.setAttribute("tabindex","-1");
+    a.addEventListener("click", e=>{
+      e.preventDefault();
+      history.replaceState(null,"","#"+id);
+      document.getElementById(id).scrollIntoView({behavior:"smooth"});
+      if(navigator.clipboard){
+        navigator.clipboard.writeText(location.origin+location.pathname+"#"+id).catch(()=>{});
+      }
+    });
+    h.appendChild(a);
+  });
+}
 
 /* ===================== STUDIJA SLUCAJA ===================== */
 const CS_DID = [
@@ -1609,6 +1736,7 @@ document.querySelectorAll("form").forEach(f=>{
 dpInit();
 setLang("sr");
 ucitajRepos();
+initScrollSpy();
 </script>
 </body>
 </html>
