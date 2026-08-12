@@ -1,0 +1,5 @@
+# https://portfoliolukacvoro.netlify.app/
+User-agent: *
+Allow: /
+
+Sitemap: https://portfoliolukacvoro.netlify.app/sitemap.xml
