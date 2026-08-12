@@ -8,7 +8,7 @@
 
 Personal site and CV. Oracle APEX & PL/SQL developer based in Belgrade.
 
-**Live:** [lukacvoro.netlify.app](https://portfoliolukacvoro.netlify.app/) · **LinkedIn:** [luka-cvoro](https://www.linkedin.com/in/luka-cvoro-3b2194197/) · **Email:** [lukac95@gmail.com](mailto:lukac95@gmail.com)
+**Live:** [portfoliolukacvoro.netlify.app](https://portfoliolukacvoro.netlify.app/) · **LinkedIn:** [luka-cvoro](https://www.linkedin.com/in/luka-cvoro-3b2194197/) · **Email:** [lukac95@gmail.com](mailto:lukac95@gmail.com)
 
 ---
 
@@ -25,9 +25,17 @@ The idea was for the site to not just *describe* what I do, but to **show** it: 
 | **Bilingual** | The whole site in Serbian and English — one click, no page reload. Text, dates, code samples and error messages all switch. |
 | **Live SQL console** | The filters above the tech list print an actual `SELECT ... WHERE ... ORDER BY` with a row count that updates as you choose. |
 | **GitHub projects** | Repositories are pulled live from the GitHub API. A new project shows up on its own — no code change, no redeploy. |
+| **Case study** | One project up close — situation, what was done, the result and what was learned, with a headline figure. |
 | **Timeline** | Experience and education with bullet points per role, active positions marked. |
 | **Forms** | Contact and quote request, with per-field validation and submission through Netlify Forms — no backend. |
 | **Date picker** | A custom one, because the native `input[type=date]` ignores the site's language. Formats as `dd.mm.yyyy.` or `dd/mm/yyyy`. |
+| **Scroll-aware nav** | The active section highlights itself as you scroll, with a gold underline on the menu item. |
+| **Shareable links** | Every heading carries a `#` that appears on hover — clicking copies a link straight to that section. |
+| **SEO** | `sitemap.xml`, `robots.txt`, an Open Graph image and `Person` structured data for search engines. |
+
+## What's on the site
+
+Six sections, one below the other: **experience** (six roles with bullet points, plus education), a **case study** (Bosch Data Marketplace), **tech stack** (twenty cards with a filter), **projects** from GitHub, **code samples** in six languages and **contact**.
 
 ## Built with
 
@@ -42,6 +50,8 @@ No jQuery, no React, no Tailwind. Deliberately — for a site this size they wou
 ├── index.html      # the whole site: markup, styles, logic, translations
 ├── luka.jpg        # photo (400×400)
 ├── og.png          # link preview image (1200×630)
+├── sitemap.xml     # sitemap for search engines
+├── robots.txt      # crawler rules + link to the sitemap
 ├── README.md       # Serbian version
 └── README.en.md    # this file
 ```
@@ -49,8 +59,8 @@ No jQuery, no React, no Tailwind. Deliberately — for a site this size they wou
 ## Running it
 
 ```bash
-git clone https://github.com/Cvoki/portfolio.git
-cd portfolio
+git clone https://github.com/Cvoki/Portfolio.git
+cd Portfolio
 ```
 
 Open `index.html` in a browser — that's it.
@@ -84,6 +94,12 @@ Everything editable lives in the `<script>` block at the bottom of `index.html`,
 | Code samples | `const PRIMERI = {...}` |
 
 Every text field takes the shape `{sr: "...", en: "..."}` — add both and the translation works by itself.
+
+## Search visibility
+
+The site ships with `sitemap.xml` and `robots.txt`, and `index.html` embeds a **`Person` JSON-LD** block — name, title, employer, school, languages and links to LinkedIn and GitHub. That's what Google reads when someone searches for a person.
+
+After deploying, it's worth submitting the site once to [Google Search Console](https://search.google.com/search-console) and sending the sitemap — indexing can drag on without it.
 
 ## License
 
