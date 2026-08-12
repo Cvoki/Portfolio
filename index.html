@@ -159,6 +159,52 @@ textarea{resize:vertical;min-height:104px;line-height:1.55}
 .out.show{display:block}
 .out header{padding:9px 14px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
 .out pre{margin:0;padding:16px;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:var(--ink);overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+
+/* ---------- jezici ---------- */
+.sub-h{font-size:clamp(20px,3vw,26px);margin:44px 0 18px}
+.langs{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:700px){.langs{grid-template-columns:1fr}}
+.lang-card{border:1px solid var(--line);background:var(--deep);border-radius:var(--radius);padding:22px}
+.lang-card .top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.lang-card h4{font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.02em;margin:0}
+.lang-card .cefr{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);border:1px solid rgba(240,169,59,.4);border-radius:100px;padding:3px 9px}
+.lang-card p{margin:9px 0 0;color:var(--muted);font-size:14px}
+.lbar{display:flex;gap:4px;margin-top:14px}
+.lbar i{height:5px;flex:1;background:var(--line);border-radius:2px}
+.lbar i.f{background:var(--cyan)}
+
+/* ---------- date picker ---------- */
+.dp{position:relative}
+.dp-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:var(--void);color:var(--ink);border:1px solid var(--line);border-radius:var(--radius);
+  padding:11px 13px;font-family:var(--body);font-size:15px;cursor:pointer;text-align:left;transition:.18s}
+.dp-trigger:hover{border-color:var(--muted)}
+.dp-trigger[aria-expanded="true"]{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(86,199,216,.14)}
+.dp-trigger svg{color:var(--muted);flex:none}
+.dp-trigger.empty{color:var(--muted)}
+.field.bad .dp-trigger{border-color:var(--rose)}
+.dp-pop{position:absolute;z-index:30;top:calc(100% + 6px);left:0;width:min(304px,100%);
+  background:var(--panel);border:1px solid var(--cyan);border-radius:var(--radius);
+  padding:12px;box-shadow:0 14px 40px rgba(0,0,0,.5)}
+.dp-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.dp-title{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--ink)}
+.dp-nav{background:transparent;border:1px solid var(--line);border-radius:var(--radius);color:var(--muted);
+  width:28px;height:28px;font-size:16px;line-height:1;cursor:pointer;transition:.18s}
+.dp-nav:hover{color:var(--ink);border-color:var(--muted)}
+.dp-dows,.dp-days{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.dp-dows span{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted);text-align:center;padding:4px 0}
+.dp-day{background:transparent;border:1px solid transparent;border-radius:var(--radius);color:var(--ink);
+  font-family:var(--mono);font-size:12.5px;padding:7px 0;cursor:pointer;transition:.12s}
+.dp-day:hover:not(:disabled){background:var(--deep);border-color:var(--muted)}
+.dp-day.mute{color:var(--line);cursor:default}
+.dp-day:disabled{color:#2b4b58;cursor:not-allowed}
+.dp-day.today{border-color:var(--muted)}
+.dp-day.sel{background:var(--amber);color:#08161c;border-color:var(--amber);font-weight:600}
+.dp-foot{display:flex;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+.dp-mini{flex:1;background:transparent;border:1px solid var(--line);border-radius:var(--radius);
+  color:var(--muted);font-family:var(--mono);font-size:11.5px;padding:7px 6px;cursor:pointer;transition:.18s}
+.dp-mini:hover{color:var(--ink);border-color:var(--muted)}
 .status{font-family:var(--mono);font-size:12px;padding:10px 14px;border-top:1px solid var(--line);letter-spacing:.03em}
 .status.wait{color:var(--muted)}
 .status.ok{color:var(--cyan)}
@@ -186,7 +232,7 @@ footer a:hover{color:var(--ink)}
     <a class="lnk" href="#stack" data-i18n="nav.stack"></a>
     <a class="lnk" href="#kod" data-i18n="nav.code"></a>
     <a class="lnk" href="#kontakt" data-i18n="nav.contact"></a>
-    <button class="lang" id="langBtn" type="button" aria-label="Switch language"></button>
+    <button class="lang" id="langBtn" type="button" data-i18n-aria="lang.aria"></button>
   </div>
 </nav>
 
@@ -213,6 +259,9 @@ footer a:hover{color:var(--ink)}
     </div>
     <ul class="xp" id="xpList"></ul>
     <div class="edu" id="eduList"></div>
+
+    <h3 class="sub-h" data-i18n="lang.title"></h3>
+    <div class="langs" id="langList"></div>
   </div>
 </section>
 
@@ -284,8 +333,8 @@ footer a:hover{color:var(--ink)}
             <span class="err" data-i18n="f1.name.err"></span>
           </div>
           <div class="field" data-f="email">
-            <label for="k-email">Email <span class="req">*</span></label>
-            <input type="email" id="k-email" name="email" autocomplete="email" placeholder="ime@firma.rs">
+            <label for="k-email"><span data-i18n="f.email"></span> <span class="req">*</span></label>
+            <input type="email" id="k-email" name="email" autocomplete="email" data-i18n-ph="f.email.ph">
             <span class="err" data-i18n="f.email.err"></span>
           </div>
           <div class="field" data-f="tema">
@@ -325,8 +374,8 @@ footer a:hover{color:var(--ink)}
             <span class="err" data-i18n="f2.firm.err"></span>
           </div>
           <div class="field" data-f="email">
-            <label for="p-email">Email <span class="req">*</span></label>
-            <input type="email" id="p-email" name="email" autocomplete="email">
+            <label for="p-email"><span data-i18n="f.email"></span> <span class="req">*</span></label>
+            <input type="email" id="p-email" name="email" autocomplete="email" data-i18n-ph="f.email.ph">
             <span class="err" data-i18n="f.email.err"></span>
           </div>
           <div class="field" data-f="tip">
@@ -341,7 +390,28 @@ footer a:hover{color:var(--ink)}
           </div>
           <div class="field" data-f="rok">
             <label for="p-rok" data-i18n="f2.deadline"></label>
-            <input type="date" id="p-rok" name="rok">
+            <div class="dp" id="dp">
+              <button type="button" class="dp-trigger" id="dpTrigger" aria-haspopup="dialog" aria-expanded="false">
+                <span id="dpText"></span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/>
+                </svg>
+              </button>
+              <input type="hidden" id="p-rok" name="rok">
+              <div class="dp-pop" id="dpPop" role="dialog" hidden>
+                <div class="dp-head">
+                  <button type="button" class="dp-nav" id="dpPrev" aria-label="prev">‹</button>
+                  <span class="dp-title" id="dpTitle"></span>
+                  <button type="button" class="dp-nav" id="dpNext" aria-label="next">›</button>
+                </div>
+                <div class="dp-dows" id="dpDows"></div>
+                <div class="dp-days" id="dpDays"></div>
+                <div class="dp-foot">
+                  <button type="button" class="dp-mini" id="dpToday"></button>
+                  <button type="button" class="dp-mini" id="dpClear"></button>
+                </div>
+              </div>
+            </div>
             <span class="err" data-i18n="f2.deadline.err"></span>
           </div>
           <div class="field" data-f="budzet">
@@ -406,7 +476,12 @@ sr:{
  "row.ins":"-- 1 red upisan",
  "send.wait":"→ šaljem…",
  "send.ok":"✓ Poruka je poslata. Javljam se uskoro.",
- "send.fail":"✕ Slanje trenutno nije uspelo. Probaj ponovo ili mi piši direktno na mejl."
+ "send.fail":"✕ Slanje trenutno nije uspelo. Probaj ponovo ili mi piši direktno na mejl.",
+ "f.email":"Email","f.email.ph":"ime@firma.rs",
+ "lang.aria":"Prebaci na engleski",
+ "lang.title":"Jezici",
+ "dp.ph":"dd.mm.gggg.","dp.today":"Danas","dp.clear":"Obriši",
+ "dp.aria":"Izaberi datum"
 },
 en:{
  "nav.xp":"experience","nav.stack":"stack","nav.code":"code","nav.contact":"contact",
@@ -440,7 +515,12 @@ en:{
  "row.ins":"-- 1 row inserted",
  "send.wait":"→ sending…",
  "send.ok":"✓ Message sent. I'll get back to you shortly.",
- "send.fail":"✕ Sending failed for now. Please try again, or email me directly."
+ "send.fail":"✕ Sending failed for now. Please try again, or email me directly.",
+ "f.email":"Email","f.email.ph":"name@company.com",
+ "lang.aria":"Switch to Serbian",
+ "lang.title":"Languages",
+ "dp.ph":"dd/mm/yyyy","dp.today":"Today","dp.clear":"Clear",
+ "dp.aria":"Choose a date"
 }};
 
 const TOPICS = {
@@ -452,6 +532,26 @@ const TYPES = {
  en:["New project","Upgrade","Maintenance"]
 };
 const TECH_OPTS = ["Oracle APEX","PL/SQL","SQL","JavaScript","HTML/CSS","Python"];
+
+/* ===================== JEZICI ===================== */
+const JEZICI = [
+ {name:{sr:"Srpski",en:"Serbian"}, cefr:{sr:"maternji",en:"native"}, nivo:5,
+  desc:{sr:"Maternji jezik — govor, pisanje i tehnička dokumentacija bez ograničenja.",
+        en:"Native language — speaking, writing and technical documentation without limits."}},
+ {name:{sr:"Engleski",en:"English"}, cefr:{sr:"B2",en:"B2"}, nivo:4,
+  desc:{sr:"Samostalno korišćenje: tehnička dokumentacija, code review, sastanci i prepiska sa međunarodnim timovima — provereno kroz skoro tri godine u Bosch-u.",
+        en:"Independent user: technical documentation, code reviews, meetings and correspondence with international teams — proven through almost three years at Bosch."}}
+];
+
+/* ===================== KALENDAR: NAZIVI ===================== */
+const MESECI = {
+ sr:["januar","februar","mart","april","maj","jun","jul","avgust","septembar","oktobar","novembar","decembar"],
+ en:["January","February","March","April","May","June","July","August","September","October","November","December"]
+};
+const DANI = {
+ sr:["pon","uto","sre","čet","pet","sub","ned"],
+ en:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
+};
 
 /* ===================== ISKUSTVO ===================== */
 const XP = [
@@ -748,6 +848,7 @@ function renderStatic(){
   document.querySelectorAll("[data-i18n]").forEach(el=>{ el.textContent = t(el.dataset.i18n); });
   document.querySelectorAll("[data-i18n-html]").forEach(el=>{ el.innerHTML = t(el.dataset.i18nHtml); });
   document.querySelectorAll("[data-i18n-ph]").forEach(el=>{ el.placeholder = t(el.dataset.i18nPh); });
+  document.querySelectorAll("[data-i18n-aria]").forEach(el=>{ el.setAttribute("aria-label", t(el.dataset.i18nAria)); });
   $("#langBtn").textContent = lang === "sr" ? "EN" : "SR";
 }
 
@@ -767,6 +868,97 @@ function renderXP(){
       <h3>${esc(pick(e.name))}</h3>
       <p>${esc(pick(e.desc))}</p>
     </div>`).join("");
+
+  $("#langList").innerHTML = JEZICI.map(j=>`
+    <div class="lang-card">
+      <div class="top">
+        <h4>${esc(pick(j.name))}</h4>
+        <span class="cefr">${esc(pick(j.cefr))}</span>
+      </div>
+      <p>${esc(pick(j.desc))}</p>
+      <div class="lbar" role="img" aria-label="${esc(pick(j.name))} — ${j.nivo}/5">
+        ${[1,2,3,4,5].map(n=>`<i class="${n<=j.nivo?"f":""}"></i>`).join("")}
+      </div>
+    </div>`).join("");
+}
+
+/* ===================== KALENDAR ===================== */
+const DP = {
+  open:false,
+  view:new Date(),          // koji mesec se prikazuje
+  sel:null,                 // izabrani datum (Date) ili null
+  pad:n=>String(n).padStart(2,"0"),
+  iso(d){ return `${d.getFullYear()}-${this.pad(d.getMonth()+1)}-${this.pad(d.getDate())}`; },
+  fmt(d){ return lang==="sr"
+      ? `${this.pad(d.getDate())}.${this.pad(d.getMonth()+1)}.${d.getFullYear()}.`
+      : `${this.pad(d.getDate())}/${this.pad(d.getMonth()+1)}/${d.getFullYear()}`; },
+  same(a,b){ return a&&b && a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate(); }
+};
+function dpLabel(){
+  const btn = $("#dpTrigger");
+  $("#dpText").textContent = DP.sel ? DP.fmt(DP.sel) : t("dp.ph");
+  btn.classList.toggle("empty", !DP.sel);
+  btn.setAttribute("aria-label", t("dp.aria"));
+  $("#p-rok").value = DP.sel ? DP.iso(DP.sel) : "";
+}
+function dpGrid(){
+  const y = DP.view.getFullYear(), m = DP.view.getMonth();
+  $("#dpTitle").textContent = `${MESECI[lang][m]} ${y}`;
+  $("#dpDows").innerHTML = DANI[lang].map(d=>`<span>${d}</span>`).join("");
+
+  const prvi = new Date(y,m,1);
+  let offset = (prvi.getDay()+6)%7;              // ponedeljak = 0
+  const brojDana = new Date(y,m+1,0).getDate();
+  const danas = new Date(); danas.setHours(0,0,0,0);
+
+  let html = "";
+  for(let i=0;i<offset;i++) html += `<span class="dp-day mute"></span>`;
+  for(let d=1; d<=brojDana; d++){
+    const dt = new Date(y,m,d); dt.setHours(0,0,0,0);
+    const proslo = dt < danas;
+    const cls = ["dp-day"];
+    if(DP.same(dt,danas)) cls.push("today");
+    if(DP.same(dt,DP.sel)) cls.push("sel");
+    html += `<button type="button" class="${cls.join(" ")}" data-d="${d}"${proslo?" disabled":""}>${d}</button>`;
+  }
+  $("#dpDays").innerHTML = html;
+
+  $("#dpDays").querySelectorAll("button[data-d]").forEach(b=>{
+    b.addEventListener("click",()=>{
+      DP.sel = new Date(y,m,+b.dataset.d);
+      dpLabel(); dpGrid(); dpClose();
+      polje(f2,"rok")?.classList.remove("bad");
+    });
+  });
+}
+function dpOpen(){
+  DP.open = true;
+  DP.view = DP.sel ? new Date(DP.sel) : new Date();
+  $("#dpPop").hidden = false;
+  $("#dpTrigger").setAttribute("aria-expanded","true");
+  dpGrid();
+}
+function dpClose(){
+  DP.open = false;
+  $("#dpPop").hidden = true;
+  $("#dpTrigger").setAttribute("aria-expanded","false");
+}
+function dpInit(){
+  $("#dpTrigger").addEventListener("click", ()=> DP.open ? dpClose() : dpOpen());
+  $("#dpPrev").addEventListener("click", ()=>{ DP.view.setMonth(DP.view.getMonth()-1); dpGrid(); });
+  $("#dpNext").addEventListener("click", ()=>{ DP.view.setMonth(DP.view.getMonth()+1); dpGrid(); });
+  $("#dpToday").addEventListener("click", ()=>{
+    DP.sel = new Date(); DP.view = new Date(); dpLabel(); dpGrid(); dpClose();
+  });
+  $("#dpClear").addEventListener("click", ()=>{ DP.sel = null; dpLabel(); dpGrid(); dpClose(); });
+  document.addEventListener("click", e=>{ if(DP.open && !e.target.closest("#dp")) dpClose(); });
+  document.addEventListener("keydown", e=>{ if(e.key==="Escape" && DP.open) dpClose(); });
+}
+function dpRefresh(){
+  $("#dpToday").textContent = t("dp.today");
+  $("#dpClear").textContent = t("dp.clear");
+  dpLabel();
+  if(DP.open) dpGrid();
 }
 
 /* ===================== RENDER: TEHNOLOGIJE ===================== */
@@ -883,7 +1075,7 @@ function updateBudget(){
 /* ===================== JEZIK ===================== */
 function setLang(l){
   lang = l;
-  renderStatic(); renderXP(); renderChips(); renderGrid(); renderTabs(); renderFormOpts();
+  renderStatic(); renderXP(); renderChips(); renderGrid(); renderTabs(); renderFormOpts(); dpRefresh();
 }
 $("#langBtn").addEventListener("click", ()=> setLang(lang==="sr"?"en":"sr"));
 
@@ -927,6 +1119,7 @@ function posalji(form, outBox){
       else if(el.type!=="range") el.value="";
     });
     form.querySelectorAll(".field").forEach(f=>f.classList.remove("bad"));
+    if(form.id==="formPonuda"){ DP.sel=null; dpLabel(); }
   })
   .catch(()=>{
     st.className = "status fail";
@@ -980,8 +1173,8 @@ f2.addEventListener("submit", e=>{
   Object.entries(g).forEach(([k,v])=>oznaci(f2,k,v));
   const prvo = Object.keys(g).find(k=>g[k]);
   if(prvo){
-    const el = polje(f2,prvo).querySelector("input,select,textarea");
-    if(el) el.focus();
+    if(prvo==="rok"){ $("#dpTrigger").focus(); }
+    else { const el = polje(f2,prvo).querySelector("input,select,textarea"); if(el) el.focus(); }
     $("#outPonuda").classList.remove("show"); return;
   }
   const cols = lang==="sr" ? "zahtev (firma, email, tip, tehnologije, rok, budzet_eur, opis)"
@@ -1004,6 +1197,7 @@ ${t("row.ins")}`;
 f2.addEventListener("reset", ()=>{
   $("#outPonuda").classList.remove("show");
   f2.querySelectorAll(".field").forEach(f=>f.classList.remove("bad"));
+  DP.sel = null; dpLabel(); dpClose();
   setTimeout(updateBudget,0);
 });
 
@@ -1015,6 +1209,7 @@ document.querySelectorAll("form").forEach(f=>{
 });
 
 /* ===================== START ===================== */
+dpInit();
 setLang("sr");
 </script>
 </body>
