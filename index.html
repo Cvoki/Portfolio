@@ -159,7 +159,10 @@ textarea{resize:vertical;min-height:104px;line-height:1.55}
 .out.show{display:block}
 .out header{padding:9px 14px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
 .out pre{margin:0;padding:16px;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:var(--ink);overflow-x:auto;white-space:pre-wrap;word-break:break-word}
-.note{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:14px}
+.status{font-family:var(--mono);font-size:12px;padding:10px 14px;border-top:1px solid var(--line);letter-spacing:.03em}
+.status.wait{color:var(--muted)}
+.status.ok{color:var(--cyan)}
+.status.fail{color:var(--rose)}
 
 /* footer */
 footer{border-top:1px solid var(--line);padding:34px 0 46px;color:var(--muted);font-family:var(--mono);font-size:12.5px}
@@ -272,7 +275,9 @@ footer a:hover{color:var(--ink)}
       <div class="form-card">
         <h3 data-i18n="f1.title"></h3>
         <p class="hint" data-i18n="f1.hint"></p>
-        <form id="formKontakt" novalidate>
+        <form id="formKontakt" name="kontakt" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+          <input type="hidden" name="form-name" value="kontakt">
+          <p hidden><label>Ne popunjavaj: <input name="bot-field"></label></p>
           <div class="field" data-f="ime">
             <label for="k-ime"><span data-i18n="f1.name"></span> <span class="req">*</span></label>
             <input type="text" id="k-ime" name="ime" autocomplete="name">
@@ -311,7 +316,9 @@ footer a:hover{color:var(--ink)}
       <div class="form-card">
         <h3 data-i18n="f2.title"></h3>
         <p class="hint" data-i18n="f2.hint"></p>
-        <form id="formPonuda" novalidate>
+        <form id="formPonuda" name="ponuda" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+          <input type="hidden" name="form-name" value="ponuda">
+          <p hidden><label>Ne popunjavaj: <input name="bot-field"></label></p>
           <div class="field" data-f="firma">
             <label for="p-firma"><span data-i18n="f2.firm"></span> <span class="req">*</span></label>
             <input type="text" id="p-firma" name="firma" autocomplete="organization">
@@ -354,7 +361,6 @@ footer a:hover{color:var(--ink)}
         <div class="out" id="outPonuda"><header data-i18n="out.req"></header><pre></pre></div>
       </div>
     </div>
-    <p class="note" data-i18n="note"></p>
   </div>
 </section>
 
@@ -380,7 +386,7 @@ sr:{
  "empty":"0 redova. Spusti minimalni nivo ili obriši pretragu.",
  "a.type":"tip","a.for":"koristim za","a.since":"od",
  "s3.title":"Isti zadatak, više jezika","s3.sub":"Pet kupaca sa najvećom potrošnjom. Isti rezultat — različiti alati, u zavisnosti gde se posao radi.",
- "s4.title":"Kontakt","s4.sub":"Oba formulara imaju proveru polja. Umesto slanja na server, ispisuju INSERT koji bi nastao — dok se ne zakači backend.",
+ "s4.title":"Kontakt","s4.sub":"Popuni formu i javljam se na mejl. Uz poruku se, kao mali pozdrav iz baze, ispiše i INSERT koji bi je upisao.",
  "f1.title":"Pošalji poruku","f1.hint":"Kratko pitanje, saradnja, ili samo pozdrav.",
  "f1.name":"Ime i prezime","f1.name.err":"Upiši ime — bar dva znaka.",
  "f.email.err":"Email nije ispravan. Fali @ ili domen.",
@@ -396,9 +402,11 @@ sr:{
  "f2.budget":"Okvirni budžet —",
  "f2.desc":"Šta treba da radi","f2.desc.ph":"Npr. APEX aplikacija za evidenciju naloga, Oracle baza, izveštaji…","f2.desc.err":"Napiši bar 20 znakova da procena ima smisla.",
  "f2.send":"Pošalji zahtev","out.req":"upisano · zahtevi",
- "note":"// Napomena: sajt je statičan. Ništa ne odlazi na server dok se ne zakači backend na submit događaj.",
  "footer.link":"LinkedIn profil",
- "row.ins":"-- 1 red upisan"
+ "row.ins":"-- 1 red upisan",
+ "send.wait":"→ šaljem…",
+ "send.ok":"✓ Poruka je poslata. Javljam se uskoro.",
+ "send.fail":"✕ Slanje trenutno nije uspelo. Probaj ponovo ili mi piši direktno na mejl."
 },
 en:{
  "nav.xp":"experience","nav.stack":"stack","nav.code":"code","nav.contact":"contact",
@@ -412,7 +420,7 @@ en:{
  "empty":"0 rows. Lower the minimum level or clear the search.",
  "a.type":"type","a.for":"used for","a.since":"since",
  "s3.title":"Same task, different languages","s3.sub":"Top five customers by spend. Same result — different tools, depending on where the work happens.",
- "s4.title":"Contact","s4.sub":"Both forms validate their fields. Instead of hitting a server, they print the INSERT that would result — until a backend is hooked up.",
+ "s4.title":"Contact","s4.sub":"Fill in the form and I'll reply by email. Alongside it, as a small greeting from the database, you get the INSERT that would store it.",
  "f1.title":"Send a message","f1.hint":"A quick question, a collaboration, or just a hello.",
  "f1.name":"Full name","f1.name.err":"Enter your name — at least two characters.",
  "f.email.err":"That email doesn't look right. Missing @ or domain.",
@@ -428,9 +436,11 @@ en:{
  "f2.budget":"Approximate budget —",
  "f2.desc":"What it should do","f2.desc.ph":"E.g. an APEX app for order tracking, Oracle database, reports…","f2.desc.err":"Write at least 20 characters so the estimate makes sense.",
  "f2.send":"Send request","out.req":"inserted · requests",
- "note":"// Note: this site is static. Nothing goes to a server until a backend is hooked to the submit event.",
  "footer.link":"LinkedIn profile",
- "row.ins":"-- 1 row inserted"
+ "row.ins":"-- 1 row inserted",
+ "send.wait":"→ sending…",
+ "send.ok":"✓ Message sent. I'll get back to you shortly.",
+ "send.fail":"✕ Sending failed for now. Please try again, or email me directly."
 }};
 
 const TOPICS = {
@@ -891,6 +901,39 @@ function oznaci(form,ime,lose){
   if(inp) inp.setAttribute("aria-invalid", lose ? "true" : "false");
 }
 
+/* ===================== SLANJE ===================== */
+function posalji(form, outBox){
+  let st = outBox.querySelector(".status");
+  if(!st){
+    st = document.createElement("div");
+    st.className = "status";
+    outBox.appendChild(st);
+  }
+  st.className = "status wait";
+  st.textContent = t("send.wait");
+
+  fetch("/", {
+    method: "POST",
+    headers: {"Content-Type": "application/x-www-form-urlencoded"},
+    body: new URLSearchParams(new FormData(form)).toString()
+  })
+  .then(r=>{
+    if(!r.ok) throw new Error(r.status);
+    st.className = "status ok";
+    st.textContent = t("send.ok");
+    form.querySelectorAll("input,select,textarea").forEach(el=>{
+      if(el.type==="hidden") return;
+      if(el.type==="checkbox"||el.type==="radio") el.checked=false;
+      else if(el.type!=="range") el.value="";
+    });
+    form.querySelectorAll(".field").forEach(f=>f.classList.remove("bad"));
+  })
+  .catch(()=>{
+    st.className = "status fail";
+    st.textContent = t("send.fail");
+  });
+}
+
 const f1 = $("#formKontakt");
 f1.addEventListener("submit", e=>{
   e.preventDefault();
@@ -914,6 +957,7 @@ COMMIT;
 ${t("row.ins")}`;
   $("#outKontakt").classList.add("show");
   $("#outKontakt").scrollIntoView({block:"nearest",behavior:"smooth"});
+  posalji(f1, $("#outKontakt"));
 });
 f1.addEventListener("reset", ()=>{
   $("#outKontakt").classList.remove("show");
@@ -955,6 +999,7 @@ COMMIT;
 ${t("row.ins")}`;
   $("#outPonuda").classList.add("show");
   $("#outPonuda").scrollIntoView({block:"nearest",behavior:"smooth"});
+  posalji(f2, $("#outPonuda"));
 });
 f2.addEventListener("reset", ()=>{
   $("#outPonuda").classList.remove("show");
