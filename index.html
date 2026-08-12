@@ -96,6 +96,12 @@ section{padding:clamp(52px,8vw,96px) 0}
 .xp .firm{font-family:var(--mono);font-size:13px;color:var(--cyan);margin-top:3px}
 .xp .when{font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
 .xp p{color:var(--muted);font-size:14.5px;margin:9px 0 0;max-width:64ch}
+.xp .bul{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:7px;max-width:64ch}
+.xp .bul li{position:relative;padding-left:18px;color:var(--muted);font-size:14px;line-height:1.55}
+.xp .bul li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;
+  border-radius:50%;background:var(--line)}
+.xp li.now .bul li::before{background:rgba(240,169,59,.55)}
+.xp .bul li b{color:var(--ink);font-weight:600}
 .xp .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
 .xp .tags span{font-family:var(--mono);font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:100px;padding:2px 10px}
 .edu{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:44px}
@@ -553,9 +559,9 @@ const T = {
 sr:{
  "nav.xp":"iskustvo","nav.stack":"tehnologije","nav.code":"kod","nav.contact":"kontakt",
  "hero.eyebrow":"Oracle APEX & PL/SQL Developer · Beograd",
- "hero.lede":"Gradim poslovne aplikacije tamo gde žive podaci — <strong>u Oracle bazi</strong>. APEX za ekran, <strong>PL/SQL i SQL</strong> za logiku, <strong>JavaScript i CSS</strong> kad standardno nije dovoljno. Put od junior PL/SQL developera preko Bosch-a i konsaltinga do APEX-a — <strong>5+ godina u struci</strong>, uz master studije softverskih informacionih tehnologija.",
+ "hero.lede":"Gradim poslovne aplikacije tamo gde žive podaci — <strong>u Oracle bazi</strong>. APEX za ekran, <strong>PL/SQL i SQL</strong> za logiku, <strong>JavaScript i CSS</strong> kad standardno nije dovoljno. Gradio sam <strong>redmesh DataHub</strong> i <strong>redLake</strong> za Bosch od nule, radio na sistemima za javni sektor u Srbiji — <strong>5+ godina u struci</strong>, uz master studije softverskih informacionih tehnologija.",
  "m.now":"trenutno:","m.focus":"fokus:","m.exp":"iskustvo:","m.exp.v":"od 2021.","m.loc":"lokacija:","m.loc.v":"Beograd",
- "s1.title":"Iskustvo","s1.sub":"Od prvog junior posla 2021. do razvoja APEX aplikacija danas — svaka stanica je dodala po jedan sloj: baza, korporacija, konsalting, proizvod.",
+ "s1.title":"Iskustvo","s1.sub":"Od prvog posla 2021. do APEX aplikacija za javni sektor danas — svaka stanica je dodala po jedan sloj: baza, korporacija, konsalting, proizvod.",
  "s2.title":"Tehnologije","s2.sub":"Biraj kategorije i minimalni nivo — upit se ispisuje sam, rezultat se menja odmah.",
  "console.bar":"konzola · luka@stack.sql",
  "ctl.cat":"Kategorija","ctl.search":"Pretraga po nazivu","ctl.search.ph":"npr. apex","ctl.lvl":"Minimalni nivo —",
@@ -600,9 +606,9 @@ sr:{
 en:{
  "nav.xp":"experience","nav.stack":"stack","nav.code":"code","nav.contact":"contact",
  "hero.eyebrow":"Oracle APEX & PL/SQL Developer · Belgrade",
- "hero.lede":"I build business applications where the data lives — <strong>in the Oracle database</strong>. APEX for the screen, <strong>PL/SQL and SQL</strong> for the logic, <strong>JavaScript and CSS</strong> when the standard isn't enough. From junior PL/SQL developer through Bosch and consulting to APEX — <strong>5+ years in the field</strong>, alongside a master's in software information technologies.",
+ "hero.lede":"I build business applications where the data lives — <strong>in the Oracle database</strong>. APEX for the screen, <strong>PL/SQL and SQL</strong> for the logic, <strong>JavaScript and CSS</strong> when the standard isn't enough. I built <strong>redmesh DataHub</strong> and <strong>redLake</strong> for Bosch from scratch and worked on public sector systems in Serbia — <strong>5+ years in the field</strong>, alongside a master's in software information technologies.",
  "m.now":"currently:","m.focus":"focus:","m.exp":"experience:","m.exp.v":"since 2021","m.loc":"location:","m.loc.v":"Belgrade",
- "s1.title":"Experience","s1.sub":"From the first junior job in 2021 to building APEX applications today — every stop added a layer: database, corporation, consulting, product.",
+ "s1.title":"Experience","s1.sub":"From the first job in 2021 to APEX applications for the public sector today — every stop added a layer: database, corporation, consulting, product.",
  "s2.title":"Tech stack","s2.sub":"Pick categories and a minimum level — the query writes itself, the result updates instantly.",
  "console.bar":"console · luka@stack.sql",
  "ctl.cat":"Category","ctl.search":"Search by name","ctl.search.ph":"e.g. apex","ctl.lvl":"Minimum level —",
@@ -679,29 +685,88 @@ const DANI = {
 const XP = [
  {now:true, role:"Oracle APEX Developer", firm:"NETcom System — Novi Beograd",
   when:{sr:"septembar 2025 — danas",en:"September 2025 — present"},
-  desc:{sr:"Razvoj poslovnih aplikacija u Oracle APEX-u od baze do ekrana: forme, interaktivni izveštaji, autorizacija i PL/SQL logika iza njih. Mesto gde se sve prethodno iskustvo — baza, korporativni procesi i konsalting — slilo u jednu ulogu.",
-        en:"Building business applications in Oracle APEX from the database to the screen: forms, interactive reports, authorization and the PL/SQL logic behind them. The place where all previous experience — database, corporate processes and consulting — merged into a single role."},
-  tags:["Oracle APEX","PL/SQL","SQL","HTML/CSS/JS"]},
+  desc:{sr:"Razvoj poslovnih aplikacija u Oracle APEX-u od baze do ekrana — mesto gde se sve prethodno iskustvo slilo u jednu ulogu.",
+        en:"Building business applications in Oracle APEX from the database to the screen — where all the previous experience merged into a single role."},
+  bul:[
+   {sr:"Razvoj i održavanje više Oracle APEX aplikacija namenjenih javnom sektoru u Srbiji.",
+    en:"Developed and maintained multiple Oracle APEX applications for the public sector in Serbia."},
+   {sr:"Poslovna analiza: razgovor sa naručiocem, prevođenje zahteva u model podataka i konkretne ekrane.",
+    en:"Business analysis: talking to stakeholders, translating requirements into a data model and concrete screens."},
+   {sr:"Saradnja sa timovima iz različitih oblasti na proširenju funkcionalnosti i korisničkog iskustva.",
+    en:"Collaborated with cross-functional teams to enhance application functionality and user experience."},
+   {sr:"Kontinuirana podrška postojećim aplikacijama — performanse i zadovoljstvo korisnika.",
+    en:"Provided ongoing support for existing applications, ensuring optimal performance and user satisfaction."}],
+  tags:["Oracle APEX","PL/SQL","SQL",{sr:"poslovna analiza",en:"business analysis"},"HTML/CSS/JS","REST","Postman","Swagger"]},
+
  {role:"Oracle Technical Consultant", firm:"Prointer ITSS — Beograd",
   when:{sr:"jun 2025 — septembar 2025",en:"June 2025 — September 2025"},
-  desc:{sr:"Konsultantska uloga na Oracle tehnologijama: rad direktno sa klijentskim sistemima, analiza zahteva, razvoj APEX aplikacija i tehnička rešenja nad bazom. Kratka, ali intenzivna stanica koja je izoštrila rad sa naručiocima.",
-        en:"Consulting role on Oracle technologies: working directly with client systems, requirements analysis, APEX application development and technical solutions on top of the database. A short but intense stop that sharpened working with clients."},
-  tags:["Oracle APEX","Oracle","PL/SQL","HTML/CSS/JS",{sr:"konsalting",en:"consulting"}]},
+  desc:{sr:"Konsultantski rad na Oracle Cloud sistemima — kratka, ali intenzivna stanica koja je izoštrila rad sa klijentima.",
+        en:"Consulting on Oracle Cloud systems — a short but intense stop that sharpened working directly with clients."},
+  bul:[
+   {sr:"Stručne konsultacije na Oracle Cloud sistemima, sa fokusom na Fusion i arhitekturu Oracle APEX-a.",
+    en:"Provided expert consultation on Oracle Cloud systems, specializing in Fusion and Oracle APEX architecture."},
+   {sr:"Projektovanje i implementacija rešenja po meri klijenta, uz proširenje funkcionalnosti postojećih sistema.",
+    en:"Collaborated with clients to design and implement tailored solutions, enhancing system functionality."},
+   {sr:"Rad na projektima uz direktan odnos sa naručiocem i isporuku bez kompromisa po kvalitetu.",
+    en:"Delivered project work with direct client relationships and no compromise on quality."}],
+  tags:["Oracle APEX","Oracle Fusion","Oracle Cloud","PL/SQL","HTML/CSS/JS","Postman","Swagger",{sr:"konsalting",en:"consulting"}]},
+
  {role:"Software Engineer", firm:"Bosch Digital Solutions / Bosch Srbija — Beograd",
   when:{sr:"septembar 2022 — maj 2025",en:"September 2022 — May 2025"},
-  desc:{sr:"Skoro tri godine inženjerskog rada u globalnom korporativnom okruženju: razvoj i održavanje softverskih rešenja, PL/SQL logika u bazi, interne APEX aplikacije sa prilagođenim HTML/CSS/JS delovima, code review, rad po standardima i procesima velikog sistema, saradnja sa međunarodnim timovima. Najduža stanica — i ona koja je juniora pretvorila u samostalnog inženjera.",
-        en:"Almost three years of engineering in a global corporate environment: developing and maintaining software solutions, PL/SQL logic in the database, internal APEX applications with custom HTML/CSS/JS parts, code review, working by the standards and processes of a large organization, collaborating with international teams. The longest stop — the one that turned a junior into an independent engineer."},
-  tags:["software engineering","Oracle APEX","PL/SQL","SQL","HTML/CSS/JS","Git","agile"]},
+  desc:{sr:"Skoro tri godine u globalnom korporativnom okruženju, na proizvodu građenom od nule. Najduža stanica — i ona koja je juniora pretvorila u samostalnog inženjera.",
+        en:"Almost three years in a global corporate environment, on a product built from scratch. The longest stop — the one that turned a junior into an independent engineer."},
+  bul:[
+   {sr:"<b>redmesh DataHub</b> i <b>redLake service portal</b> — Bosch Data Marketplace građen od nule u Oracle APEX-u i PL/SQL-u, uz učešće u arhitekturi od prvog dana.",
+    en:"<b>redmesh DataHub</b> and <b>redLake service portal</b> — the Bosch Data Marketplace built from scratch in Oracle APEX and PL/SQL, contributing to the architecture from day one."},
+   {sr:"Optimizacija koja je <b>ubrzala sistem za oko 90%</b> — kroz prepravku upita, indekse i logiku prebačenu u bazu.",
+    en:"Optimization that made the system roughly <b>90% faster</b> — through query rewrites, indexing and moving logic into the database."},
+   {sr:"Izgradnja kompletne e-commerce platforme za Bosch, sa naglaskom na upravljanje podacima.",
+    en:"Contributed to building a comprehensive e-commerce platform for Bosch, enhancing data management capabilities."},
+   {sr:"Saradnja sa međunarodnim timovima na integraciji i besprekornom radu aplikacija, uz code review i Jira tok rada.",
+    en:"Collaborated with cross-functional teams to ensure seamless integration and functionality, with code review and a Jira workflow."}],
+  tags:["Oracle APEX","PL/SQL","SQL",{sr:"arhitektura",en:"architecture"},"e-commerce","HTML/CSS/JS","Postman","Swagger","Jira","Git","agile"]},
+
  {role:"Junior PL/SQL Developer", firm:{sr:"Fadata — softver za osiguranje",en:"Fadata — insurance software"},
   when:{sr:"decembar 2021 — jul 2022",en:"December 2021 — July 2022"},
-  desc:{sr:"Razvoj u PL/SQL-u na INSIS platformi za osiguravajuće kuće: procedure, paketi i upiti nad velikim, ozbiljnim šemama podataka, uz prve APEX ekrane nad njima. Ovde je baza prestala da bude alat i postala specijalnost.",
-        en:"PL/SQL development on the INSIS platform for insurance companies: procedures, packages and queries over large, serious data schemas, plus the first APEX screens on top of them. This is where the database stopped being a tool and became a specialty."},
-  tags:["PL/SQL","Oracle APEX","Oracle","HTML/CSS/JS","insurance"]},
+  desc:{sr:"Ulazak u Oracle ekosistem: ovde je baza prestala da bude alat i postala specijalnost.",
+        en:"Entering the Oracle ecosystem: this is where the database stopped being a tool and became a specialty."},
+  bul:[
+   {sr:"Razvoj i održavanje PL/SQL aplikacija na projektima za javni sektor u Srbiji.",
+    en:"Developed and maintained PL/SQL applications for public sector projects in Serbia."},
+   {sr:"Rad sa klijentima poput JGSP Novi Sad, EPS i Novosadske toplane na rešenjima po meri.",
+    en:"Worked with clients such as JGSP Novi Sad, EPS and Novosadska toplana to deliver tailored solutions."},
+   {sr:"Korišćenje Oracle APEX-a, Oracle Reports-a i Forms-a za funkcionalnost i korisničko iskustvo.",
+    en:"Used Oracle APEX, Oracle Reports and Forms to enhance functionality and user experience."},
+   {sr:"Široko znanje Oracle tehnologija stečeno ovde otvorilo je vrata svemu što je usledilo.",
+    en:"The broad Oracle knowledge gained here opened the door to everything that followed."}],
+  tags:["PL/SQL","Oracle APEX","Oracle Forms","Oracle Reports","Oracle","HTML/CSS/JS","insurance"]},
+
  {role:"Junior Software Developer", firm:"Mega Computer Engineering — Beograd",
   when:{sr:"mart 2021 — novembar 2021",en:"March 2021 — November 2021"},
-  desc:{sr:"Prvi razvojni posao: rad na aplikacijama i bazama pod mentorstvom, prve produkcione greške i prve ispravke. Ulazna tačka u profesionalni razvoj softvera.",
-        en:"First development job: working on applications and databases under mentorship, first production bugs and first fixes. The entry point into professional software development."},
-  tags:["SQL","HTML/CSS/JS",{sr:"razvoj",en:"development"},{sr:"početak karijere",en:"career start"}]}
+  desc:{sr:"Prvi razvojni posao i ulazna tačka u profesionalni razvoj softvera — prve produkcione greške i prve ispravke.",
+        en:"First development job and the entry point into professional software development — first production bugs and first fixes."},
+  bul:[
+   {sr:"Razvoj i održavanje aplikacija za javni sektor u Srbiji: Adobe ColdFusion, PHP, HTML, CSS, JavaScript i Angular.",
+    en:"Developed and maintained software for the public sector in Serbia using Adobe ColdFusion, PHP, HTML, CSS, JavaScript and Angular."},
+   {sr:"Intenzivan rad sa MSSQL i PostgreSQL bazama, sa fokusom na integritet i performanse podataka.",
+    en:"Worked extensively with MSSQL and PostgreSQL databases, focusing on data integrity and performance."},
+   {sr:"Doprinos funkcionalnostima softvera <b>Hermes</b> i time boljim uslugama za građane.",
+    en:"Contributed to the functionality of the <b>Hermes</b> software, improving public services."}],
+  tags:["Adobe ColdFusion","PHP","Laravel","Angular","MSSQL","PostgreSQL","HTML/CSS/JS",{sr:"početak karijere",en:"career start"}]},
+
+ {now:true, role:{sr:"Software Developer — Freelance",en:"Software Developer — Freelance"},
+  firm:{sr:"samostalni projekti",en:"independent projects"},
+  when:{sr:"mart 2021 — danas · uporedo sa stalnim poslom",en:"March 2021 — present · alongside full-time work"},
+  desc:{sr:"Projekti po meri klijenta, od baze do isporuke — ceo ciklus u jednim rukama. Traje neprekidno uz sva stalna zaposlenja.",
+        en:"Custom client projects from database to delivery — the whole cycle in one pair of hands. Running continuously alongside every full-time role."},
+  bul:[
+   {sr:"Razvoj i održavanje web aplikacija za različite klijente u PHP-u, Laravel-u i Oracle APEX-u.",
+    en:"Developed and maintained web applications for diverse clients using PHP, Laravel and Oracle APEX."},
+   {sr:"Integracija raznih baza — Oracle, MySQL, PostgreSQL i NoSQL rešenja.",
+    en:"Integrated various databases including Oracle, MySQL, PostgreSQL and NoSQL solutions."},
+   {sr:"Izrada preglednih interfejsa u HTML-u, CSS-u, JavaScript-u i Bootstrap-u.",
+    en:"Designed user-friendly interfaces using HTML, CSS, JavaScript and Bootstrap."}],
+  tags:["PHP","Laravel","Oracle APEX","MySQL","PostgreSQL","NoSQL","Bootstrap","HTML/CSS/JS"]}
 ];
 
 const EDU = [
@@ -737,6 +802,36 @@ const TEH = [
   opis:{sr:"Tabele, indeksi, sekvence, pogledi, prava pristupa — temelj na kom sve ostalo stoji.",
         en:"Tables, indexes, sequences, views, access rights — the foundation everything else stands on."},
   za:{sr:"produkcione baze",en:"production databases"}},
+ {ime:"Oracle Forms & Reports", kat:"baze", nivo:3, od:2021,
+  tip:{sr:"nasleđeni Oracle alati",en:"legacy Oracle tools"},
+  opis:{sr:"Održavanje i izmene starijih Oracle aplikacija i izveštaja — sistemi koji i dalje nose posao u javnom sektoru.",
+        en:"Maintaining and extending older Oracle applications and reports — systems that still carry the work in the public sector."},
+  za:{sr:"nasleđeni sistemi, izveštaji",en:"legacy systems, reports"}},
+ {ime:"Oracle Fusion Cloud", kat:"baze", nivo:3, od:2025,
+  tip:{sr:"cloud platforma",en:"cloud platform"},
+  opis:{sr:"Konsultantski rad na Fusion okruženju i arhitekturi rešenja koja se oslanjaju na Oracle Cloud.",
+        en:"Consulting on the Fusion environment and the architecture of solutions built on Oracle Cloud."},
+  za:{sr:"konsalting, arhitektura",en:"consulting, architecture"}},
+ {ime:"PostgreSQL", kat:"baze", nivo:3, od:2021,
+  tip:{sr:"RDBMS",en:"RDBMS"},
+  opis:{sr:"Otvorena alternativa Oracle-u: CTE upiti, JSONB kolone i rad na web projektima.",
+        en:"The open alternative to Oracle: CTE queries, JSONB columns and work on web projects."},
+  za:{sr:"web projekti",en:"web projects"}},
+ {ime:"MySQL", kat:"baze", nivo:3, od:2021,
+  tip:{sr:"RDBMS",en:"RDBMS"},
+  opis:{sr:"Standardna baza iza PHP i Laravel projekata — modelovanje, upiti i migracije.",
+        en:"The standard database behind PHP and Laravel projects — modeling, queries and migrations."},
+  za:{sr:"PHP/Laravel projekti",en:"PHP/Laravel projects"}},
+ {ime:"MS SQL Server", kat:"baze", nivo:3, od:2021,
+  tip:{sr:"RDBMS",en:"RDBMS"},
+  opis:{sr:"Rad sa T-SQL-om i postojećim šemama na aplikacijama za javni sektor.",
+        en:"Working with T-SQL and existing schemas on public sector applications."},
+  za:{sr:"javni sektor",en:"public sector"}},
+ {ime:"NoSQL", kat:"baze", nivo:2, od:2021,
+  tip:{sr:"nerelacione baze",en:"non-relational databases"},
+  opis:{sr:"Osnove rada sa dokumentima umesto tabela, na freelance projektima gde je šema bila promenljiva.",
+        en:"Basics of working with documents instead of tables, on freelance projects where the schema kept changing."},
+  za:{sr:"fleksibilne šeme",en:"flexible schemas"}},
  {ime:"JavaScript", kat:"frontend", nivo:4, od:2019,
   tip:{sr:"programski jezik",en:"programming language"},
   opis:{sr:"Dinamičke akcije u APEX-u i čist JS van njega: DOM, događaji, fetch, validacija formulara.",
@@ -752,6 +847,21 @@ const TEH = [
   opis:{sr:"Prilagođavanje APEX tema i samostalni rasporedi: grid, flex, promenljive, responzivnost.",
         en:"Customizing APEX themes and standalone layouts: grid, flex, variables, responsiveness."},
   za:{sr:"APEX teme, izgled",en:"APEX themes, look & feel"}},
+ {ime:"Bootstrap", kat:"frontend", nivo:4, od:2021,
+  tip:{sr:"CSS framework",en:"CSS framework"},
+  opis:{sr:"Brzo sklapanje preglednih, responzivnih interfejsa — mreža, komponente i forme bez pisanja svega iz nule.",
+        en:"Quickly assembling clean, responsive interfaces — grid, components and forms without writing everything from scratch."},
+  za:{sr:"brzi interfejsi",en:"fast interfaces"}},
+ {ime:"Angular", kat:"frontend", nivo:2, od:2021,
+  tip:{sr:"frontend framework",en:"frontend framework"},
+  opis:{sr:"Rad na postojećim komponentama i ekranima u okviru aplikacija za javni sektor.",
+        en:"Working on existing components and screens within public sector applications."},
+  za:{sr:"nasleđeni frontend",en:"legacy frontend"}},
+ {ime:"React", kat:"frontend", nivo:1, od:2026,
+  tip:{sr:"frontend biblioteka",en:"frontend library"},
+  opis:{sr:"Trenutno učim — komponente, stanje i hook-ovi. Sledeći korak posle Angular-a i čistog JavaScript-a.",
+        en:"Currently learning — components, state and hooks. The next step after Angular and plain JavaScript."},
+  za:{sr:"učenje",en:"learning"}},
  {ime:"Python", kat:"backend", nivo:3, od:2021,
   tip:{sr:"programski jezik",en:"programming language"},
   opis:{sr:"Skripte za obradu podataka, integracije i automatizaciju poslova oko baze.",
@@ -777,6 +887,21 @@ const TEH = [
   opis:{sr:"ORDS i spoljni servisi: izlaganje podataka iz baze i povezivanje APEX-a sa drugim sistemima.",
         en:"ORDS and external services: exposing data from the database and connecting APEX to other systems."},
   za:{sr:"ORDS, integracije",en:"ORDS, integrations"}},
+ {ime:"Postman", kat:"alati", nivo:4, od:2022,
+  tip:{sr:"testiranje API-ja",en:"API testing"},
+  opis:{sr:"Provera REST servisa pre nego što odu u aplikaciju: kolekcije zahteva, promenljive okruženja, autentikacija, brzo reprodukovanje grešaka.",
+        en:"Checking REST services before they reach the application: request collections, environment variables, authentication, quick bug reproduction."},
+  za:{sr:"testiranje i debug API-ja",en:"API testing & debugging"}},
+ {ime:"Swagger / OpenAPI", kat:"alati", nivo:4, od:2022,
+  tip:{sr:"dokumentacija API-ja",en:"API documentation"},
+  opis:{sr:"Opis krajnjih tačaka koji i drugi razumeju: šeme, primeri odgovora i isprobavanje poziva direktno iz dokumentacije.",
+        en:"Endpoint descriptions others can actually read: schemas, response examples and trying calls straight from the docs."},
+  za:{sr:"dokumentacija, integracije",en:"documentation, integrations"}},
+ {ime:"Jira", kat:"alati", nivo:4, od:2022,
+  tip:{sr:"praćenje zadataka",en:"issue tracking"},
+  opis:{sr:"Svakodnevni tok rada u timu: zadaci, sprintovi, veza commita sa tiketom i uredna istorija odluka.",
+        en:"The everyday team workflow: tasks, sprints, linking commits to tickets and a tidy history of decisions."},
+  za:{sr:"agile timovi",en:"agile teams"}},
  {ime:"Git", kat:"alati", nivo:4, od:2020,
   tip:{sr:"kontrola verzija",en:"version control"},
   opis:{sr:"Grane, pregled izmena i istorija koja objašnjava zašto je nešto promenjeno — i za kod i za skripte baze.",
@@ -978,10 +1103,11 @@ function renderStatic(){
 function renderXP(){
   $("#xpList").innerHTML = XP.map(x=>`
     <li${x.now?' class="now"':''}>
-      <div class="role">${esc(x.role)}</div>
+      <div class="role">${esc(pick(x.role))}</div>
       <div class="firm">${esc(pick(x.firm))}</div>
       <div class="when">${esc(pick(x.when))}</div>
       <p>${esc(pick(x.desc))}</p>
+      ${x.bul ? `<ul class="bul">${x.bul.map(b=>`<li>${pick(b)}</li>`).join("")}</ul>` : ""}
       <div class="tags">${x.tags.map(tg=>`<span>${esc(pick(tg))}</span>`).join("")}</div>
     </li>`).join("");
   $("#eduList").innerHTML = EDU.map(e=>`
