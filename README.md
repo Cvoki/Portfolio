@@ -8,7 +8,7 @@
 
 Lični sajt i CV. Oracle APEX & PL/SQL developer iz Beograda.
 
-**Uživo:** [lukacvoro.netlify.app](https://portfoliolukacvoro.netlify.app/) · **LinkedIn:** [luka-cvoro](https://www.linkedin.com/in/luka-cvoro-3b2194197/) · **Mejl:** [lukac95@gmail.com](mailto:lukac95@gmail.com)
+**Uživo:** [portfoliolukacvoro.netlify.app](https://portfoliolukacvoro.netlify.app/) · **LinkedIn:** [luka-cvoro](https://www.linkedin.com/in/luka-cvoro-3b2194197/) · **Mejl:** [lukac95@gmail.com](mailto:lukac95@gmail.com)
 
 ---
 
@@ -25,9 +25,17 @@ Ideja je bila da sajt ne samo *opisuje* šta radim, nego to i **pokaže**: pošt
 | **Dvojezičnost** | Ceo sajt na srpskom i engleskom — jedan klik, bez ponovnog učitavanja. Prevode se i tekstovi, i datumi, i primeri koda, i poruke o greškama. |
 | **Živa SQL konzola** | Filteri iznad liste tehnologija ispisuju stvarni `SELECT ... WHERE ... ORDER BY` sa brojem redova, koji se menja dok biraš. |
 | **GitHub projekti** | Repozitorijumi se povlače uživo sa GitHub API-ja. Novi projekat se pojavi sam, bez izmene koda i bez novog deploya. |
+| **Studija slučaja** | Jedan projekat izbliza — situacija, šta je rađeno, rezultat i šta je naučeno, sa istaknutom brojkom. |
 | **Vremenska linija** | Iskustvo i obrazovanje sa tačkicama po pozicijama, aktivne uloge označene. |
 | **Formulari** | Kontakt i zahtev za ponudu, sa validacijom po polju i slanjem preko Netlify Forms — bez backenda. |
 | **Kalendar** | Sopstveni date picker, jer nativni `input[type=date]` ne poštuje jezik sajta. Format `dd.mm.gggg.` ili `dd/mm/yyyy`. |
+| **Navigacija koja prati** | Aktivna sekcija se sama ističe dok skroluješ, sa zlatnom linijom ispod stavke. |
+| **Deljivi linkovi** | Svaki naslov ima `#` koji se pojavi na prelaz mišem — klik kopira link direktno na tu sekciju. |
+| **SEO** | `sitemap.xml`, `robots.txt`, Open Graph slika i `Person` strukturirani podaci za pretraživače. |
+
+## Sadržaj sajta
+
+Šest sekcija, jedna ispod druge: **iskustvo** (šest pozicija sa tačkicama i obrazovanje), **studija slučaja** (Bosch Data Marketplace), **tehnologije** (dvadeset kartica sa filterom), **projekti** sa GitHub-a, **primeri koda** u šest jezika i **kontakt**.
 
 ## Tehnologije
 
@@ -42,6 +50,8 @@ Bez jQuery-ja, bez React-a, bez Tailwind-a. Namerno — za sajt ove veličine sv
 ├── index.html      # ceo sajt: struktura, stilovi, logika, prevodi
 ├── luka.jpg        # fotografija (400×400)
 ├── og.png          # slika za pregled linka (1200×630)
+├── sitemap.xml     # mapa sajta za pretraživače
+├── robots.txt      # pravila za robote + link ka mapi
 ├── README.md       # ova datoteka
 └── README.en.md    # engleska verzija
 ```
@@ -49,8 +59,8 @@ Bez jQuery-ja, bez React-a, bez Tailwind-a. Namerno — za sajt ove veličine sv
 ## Pokretanje
 
 ```bash
-git clone https://github.com/Cvoki/portfolio.git
-cd portfolio
+git clone https://github.com/Cvoki/Portfolio.git
+cd Portfolio
 ```
 
 Otvori `index.html` u pregledaču — to je sve.
@@ -84,6 +94,12 @@ Sve što se menja nalazi se u `<script>` bloku na dnu `index.html`, u nekoliko n
 | Primeri koda | `const PRIMERI = {...}` |
 
 Svako polje sa tekstom ima oblik `{sr: "...", en: "..."}` — dodaš oba i prevod radi sam.
+
+## Vidljivost u pretrazi
+
+Uz sajt idu `sitemap.xml` i `robots.txt`, a u `index.html` je ugrađen **`Person` JSON-LD** blok — ime, titula, poslodavac, škola, jezici i linkovi ka LinkedIn-u i GitHub-u. To je ono što Google čita kad neko pretražuje osobu.
+
+Posle objavljivanja vredi jednom prijaviti sajt na [Google Search Console](https://search.google.com/search-console) i poslati mapu — bez toga indeksiranje ume da potraje.
 
 ## Licenca
 
