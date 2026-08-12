@@ -1,3 +1,9 @@
+<div align="right">
+
+**Srpski** · [English](README.en.md)
+
+</div>
+
 # Luka Cvoro — Portfolio
 
 Lični sajt i CV. Oracle APEX & PL/SQL developer iz Beograda.
@@ -36,7 +42,8 @@ Bez jQuery-ja, bez React-a, bez Tailwind-a. Namerno — za sajt ove veličine sv
 ├── index.html      # ceo sajt: struktura, stilovi, logika, prevodi
 ├── luka.jpg        # fotografija (400×400)
 ├── og.png          # slika za pregled linka (1200×630)
-└── README.md
+├── README.md       # ova datoteka
+└── README.en.md    # engleska verzija
 ```
 
 ## Pokretanje
