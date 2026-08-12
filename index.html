@@ -4,6 +4,25 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Luka Cvoro — Oracle APEX &amp; PL/SQL Developer</title>
+<meta name="description" content="Oracle APEX i PL/SQL developer iz Beograda. Poslovne aplikacije nad Oracle bazom — APEX, PL/SQL, SQL, JavaScript. Iskustvo iz Bosch-a, Fadate i Prointer-a.">
+<meta name="author" content="Luka Cvoro">
+<link rel="canonical" href="https://lukacvoro.netlify.app/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lukacvoro.netlify.app/">
+<meta property="og:title" content="Luka Cvoro — Oracle APEX &amp; PL/SQL Developer">
+<meta property="og:description" content="Poslovne aplikacije tamo gde žive podaci — u Oracle bazi. APEX, PL/SQL, SQL i web tehnologije. 5+ godina iskustva.">
+<meta property="og:image" content="https://lukacvoro.netlify.app/og.png">
+<meta property="og:locale" content="sr_RS">
+<meta property="og:locale:alternate" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Luka Cvoro — Oracle APEX &amp; PL/SQL Developer">
+<meta name="twitter:description" content="Poslovne aplikacije nad Oracle bazom. APEX, PL/SQL, SQL, JavaScript.">
+<meta name="twitter:image" content="https://lukacvoro.netlify.app/og.png">
+
+<meta name="theme-color" content="#07161d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%2307161d'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='bold' fill='%23f0a93b' text-anchor='middle'%3ELC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -160,6 +179,44 @@ textarea{resize:vertical;min-height:104px;line-height:1.55}
 .out header{padding:9px 14px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
 .out pre{margin:0;padding:16px;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:var(--ink);overflow-x:auto;white-space:pre-wrap;word-break:break-word}
 
+/* ---------- avatar u hero ---------- */
+.hero-id{display:flex;align-items:center;gap:clamp(16px,3vw,28px);flex-wrap:wrap}
+.avatar{width:clamp(84px,11vw,120px);height:clamp(84px,11vw,120px);border-radius:50%;
+  object-fit:cover;border:2px solid var(--line);background:var(--deep);flex:none;
+  box-shadow:0 0 0 6px rgba(240,169,59,.07)}
+
+/* ---------- projekti ---------- */
+.repos{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:16px}
+.repo{border:1px solid var(--line);background:var(--deep);border-radius:var(--radius);
+  padding:20px;display:flex;flex-direction:column;gap:11px;text-decoration:none;color:inherit;transition:.2s}
+.repo:hover{border-color:var(--cyan);background:var(--panel);transform:translateY(-2px)}
+.repo .rname{font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.02em;
+  color:var(--ink);word-break:break-word}
+.repo:hover .rname{color:var(--cyan)}
+.repo .rdesc{margin:0;color:var(--muted);font-size:14px;flex:1}
+.repo .rmeta{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.repo .rmeta b{color:var(--cyan);font-weight:500}
+.lang-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--amber);margin-right:6px;vertical-align:-1px}
+.repo-skel{border:1px solid var(--line);background:var(--deep);border-radius:var(--radius);height:150px;
+  animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:.75}}
+.repos-msg{border:1px dashed var(--line);border-radius:var(--radius);padding:34px 20px;text-align:center;
+  color:var(--muted);font-family:var(--mono);font-size:13px;grid-column:1/-1}
+.repos-foot{margin-top:20px}
+
+/* ---------- kontakt traka ---------- */
+.contact-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
+.cbtn{display:inline-flex;align-items:center;gap:9px;text-decoration:none;
+  border:1px solid var(--line);background:var(--deep);border-radius:100px;
+  padding:9px 17px;color:var(--ink);font-family:var(--mono);font-size:12.5px;transition:.18s}
+.cbtn:hover{border-color:var(--cyan);background:var(--panel);color:var(--cyan)}
+.cbtn svg{width:15px;height:15px;flex:none;color:var(--muted);transition:.18s}
+.cbtn:hover svg{color:var(--cyan)}
+.cbtn.cv{border-color:rgba(240,169,59,.4);color:var(--amber)}
+.cbtn.cv svg{color:var(--amber)}
+.cbtn.cv:hover{border-color:var(--amber);background:rgba(240,169,59,.08);color:var(--amber)}
+@media(max-width:520px){.cbtn{font-size:12px;padding:8px 14px}}
+
 /* ---------- jezici ---------- */
 .sub-h{font-size:clamp(20px,3vw,26px);margin:44px 0 18px}
 .langs{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -230,6 +287,7 @@ footer a:hover{color:var(--ink)}
     <a class="brand" href="#top">luka<b>.</b>cvoro</a>
     <a class="lnk" href="#iskustvo" data-i18n="nav.xp"></a>
     <a class="lnk" href="#stack" data-i18n="nav.stack"></a>
+    <a class="lnk" href="#projekti" data-i18n="nav.projects"></a>
     <a class="lnk" href="#kod" data-i18n="nav.code"></a>
     <a class="lnk" href="#kontakt" data-i18n="nav.contact"></a>
     <button class="lang" id="langBtn" type="button" data-i18n-aria="lang.aria"></button>
@@ -239,7 +297,11 @@ footer a:hover{color:var(--ink)}
 <header class="hero" id="top">
   <div class="wrap">
     <p class="eyebrow rise" data-i18n="hero.eyebrow"></p>
-    <h1 class="rise">Luka<br><em>Cvoro.</em></h1>
+    <div class="hero-id rise">
+      <img class="avatar" id="avatar" src="luka.jpg" alt="Luka Cvoro"
+           onerror="this.onerror=null;this.src='https://github.com/Cvoki.png?size=280'">
+      <h1>Luka<br><em>Cvoro.</em></h1>
+    </div>
     <p class="lede rise" data-i18n-html="hero.lede"></p>
     <div class="hero-meta rise">
       <span><span data-i18n="m.now"></span> <b>NETcom System</b></span>
@@ -299,10 +361,27 @@ footer a:hover{color:var(--ink)}
   </div>
 </section>
 
-<section id="kod">
+<section id="projekti">
   <div class="wrap">
     <div class="sec-head">
       <span class="num">03</span>
+      <h2 data-i18n="s5.title"></h2>
+      <p data-i18n="s5.sub"></p>
+    </div>
+    <div class="repos" id="repos"></div>
+    <div class="repos-foot">
+      <a class="cbtn" href="https://github.com/Cvoki" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.6.5.5 5.6.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7 0-.7 0-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.6 18.4.5 12 .5z"/></svg>
+        <span data-i18n="s5.all"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="kod">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="num">04</span>
       <h2 data-i18n="s3.title"></h2>
       <p data-i18n="s3.sub"></p>
     </div>
@@ -314,9 +393,36 @@ footer a:hover{color:var(--ink)}
 <section id="kontakt">
   <div class="wrap">
     <div class="sec-head">
-      <span class="num">04</span>
+      <span class="num">05</span>
       <h2 data-i18n="s4.title"></h2>
       <p data-i18n="s4.sub"></p>
+    </div>
+
+    <div class="contact-bar">
+      <a class="cbtn" href="mailto:lukac95@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/>
+        </svg>
+        <span>lukac95@gmail.com</span>
+      </a>
+      <a class="cbtn" href="https://github.com/Cvoki" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 .5C5.6.5.5 5.6.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7 0-.7 0-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.6 18.4.5 12 .5z"/>
+        </svg>
+        <span>GitHub</span>
+      </a>
+      <a class="cbtn" href="https://www.linkedin.com/in/luka-cvoro-3b2194197/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M20.4 20.4h-3.6v-5.6c0-1.3 0-3-1.9-3-1.9 0-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6h.1c.5-.9 1.7-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5v6.2zM5.3 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2zm1.8 13H3.5V9h3.6v11.4zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7c0-.9-.8-1.7-1.8-1.7z"/>
+        </svg>
+        <span>LinkedIn</span>
+      </a>
+      <a class="cbtn cv" href="cv-luka-cvoro.pdf" download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+        </svg>
+        <span data-i18n="cv"></span>
+      </a>
     </div>
 
     <div class="forms">
@@ -437,7 +543,7 @@ footer a:hover{color:var(--ink)}
 <footer>
   <div class="wrap">
     <span>Luka Cvoro — Oracle APEX &amp; PL/SQL Developer</span>
-    <a href="https://www.linkedin.com/in/luka-cvoro-3b2194197/" data-i18n="footer.link"></a>
+    <a href="mailto:lukac95@gmail.com">lukac95@gmail.com</a>
   </div>
 </footer>
 
@@ -472,16 +578,24 @@ sr:{
  "f2.budget":"Okvirni budžet —",
  "f2.desc":"Šta treba da radi","f2.desc.ph":"Npr. APEX aplikacija za evidenciju naloga, Oracle baza, izveštaji…","f2.desc.err":"Napiši bar 20 znakova da procena ima smisla.",
  "f2.send":"Pošalji zahtev","out.req":"upisano · zahtevi",
- "footer.link":"LinkedIn profil",
  "row.ins":"-- 1 red upisan",
  "send.wait":"→ šaljem…",
  "send.ok":"✓ Poruka je poslata. Javljam se uskoro.",
- "send.fail":"✕ Slanje trenutno nije uspelo. Probaj ponovo ili mi piši direktno na mejl.",
+ "send.fail":"✕ Slanje trenutno nije uspelo. Probaj ponovo ili mi piši direktno na lukac95@gmail.com",
  "f.email":"Email","f.email.ph":"ime@firma.rs",
  "lang.aria":"Prebaci na engleski",
  "lang.title":"Jezici",
  "dp.ph":"dd.mm.gggg.","dp.today":"Danas","dp.clear":"Obriši",
- "dp.aria":"Izaberi datum"
+ "dp.aria":"Izaberi datum",
+ "cv":"Preuzmi CV",
+ "nav.projects":"projekti",
+ "s5.title":"Projekti sa GitHub-a",
+ "s5.sub":"Javni repozitorijumi, povučeni uživo sa mog GitHub naloga. Poslovni projekti su pod NDA, pa ovde stoji ono što je moje.",
+ "s5.all":"Svi repozitorijumi",
+ "s5.load":"učitavam repozitorijume…",
+ "s5.none":"Trenutno nema javnih repozitorijuma.",
+ "s5.err":"Lista se trenutno ne može učitati. Otvori profil direktno na GitHub-u.",
+ "s5.upd":"ažurirano"
 },
 en:{
  "nav.xp":"experience","nav.stack":"stack","nav.code":"code","nav.contact":"contact",
@@ -511,16 +625,24 @@ en:{
  "f2.budget":"Approximate budget —",
  "f2.desc":"What it should do","f2.desc.ph":"E.g. an APEX app for order tracking, Oracle database, reports…","f2.desc.err":"Write at least 20 characters so the estimate makes sense.",
  "f2.send":"Send request","out.req":"inserted · requests",
- "footer.link":"LinkedIn profile",
  "row.ins":"-- 1 row inserted",
  "send.wait":"→ sending…",
  "send.ok":"✓ Message sent. I'll get back to you shortly.",
- "send.fail":"✕ Sending failed for now. Please try again, or email me directly.",
+ "send.fail":"✕ Sending failed for now. Please try again, or email me at lukac95@gmail.com",
  "f.email":"Email","f.email.ph":"name@company.com",
  "lang.aria":"Switch to Serbian",
  "lang.title":"Languages",
  "dp.ph":"dd/mm/yyyy","dp.today":"Today","dp.clear":"Clear",
- "dp.aria":"Choose a date"
+ "dp.aria":"Choose a date",
+ "cv":"Download CV",
+ "nav.projects":"projects",
+ "s5.title":"Projects on GitHub",
+ "s5.sub":"Public repositories, pulled live from my GitHub account. Work projects are under NDA, so what's here is my own.",
+ "s5.all":"All repositories",
+ "s5.load":"loading repositories…",
+ "s5.none":"No public repositories at the moment.",
+ "s5.err":"The list can't be loaded right now. Open the profile directly on GitHub.",
+ "s5.upd":"updated"
 }};
 
 const TOPICS = {
@@ -882,6 +1004,71 @@ function renderXP(){
     </div>`).join("");
 }
 
+
+/* ===================== PROJEKTI (GitHub API) ===================== */
+const GH_USER = "Cvoki";
+let ghRepos = null;      // null = jos nije ucitano, [] = nema, false = greska
+
+const GH_BOJE = {
+  JavaScript:"#f1e05a", TypeScript:"#3178c6", HTML:"#e34c26", CSS:"#563d7c",
+  Python:"#3572A5", PHP:"#4F5D95", Java:"#b07219", "C#":"#178600",
+  PLSQL:"#dad8d8", "PL/SQL":"#dad8d8", SQLPL:"#dad8d8", TSQL:"#e38c00",
+  Shell:"#89e051", Vue:"#41b883", Blade:"#f7523f", Dockerfile:"#384d54"
+};
+
+function ghDatum(iso){
+  const d = new Date(iso);
+  return lang==="sr"
+    ? `${String(d.getDate()).padStart(2,"0")}.${String(d.getMonth()+1).padStart(2,"0")}.${d.getFullYear()}.`
+    : `${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}/${d.getFullYear()}`;
+}
+
+function renderRepos(){
+  const box = $("#repos");
+  if(!box) return;
+
+  if(ghRepos === null){
+    box.innerHTML = `<div class="repos-msg">${t("s5.load")}</div>` +
+      Array.from({length:3},()=>`<div class="repo-skel"></div>`).join("");
+    return;
+  }
+  if(ghRepos === false){
+    box.innerHTML = `<div class="repos-msg">${t("s5.err")}</div>`;
+    return;
+  }
+  if(!ghRepos.length){
+    box.innerHTML = `<div class="repos-msg">${t("s5.none")}</div>`;
+    return;
+  }
+
+  box.innerHTML = ghRepos.map(r=>{
+    const boja = GH_BOJE[r.language] || "var(--amber)";
+    const meta = [];
+    if(r.language) meta.push(`<span><i class="lang-dot" style="background:${boja}"></i>${esc(r.language)}</span>`);
+    if(r.stargazers_count) meta.push(`<span>★ <b>${r.stargazers_count}</b></span>`);
+    meta.push(`<span>${t("s5.upd")} <b>${ghDatum(r.updated_at)}</b></span>`);
+    return `
+      <a class="repo" href="${esc(r.html_url)}" target="_blank" rel="noopener">
+        <div class="rname">${esc(r.name)}</div>
+        <p class="rdesc">${r.description ? esc(r.description) : "—"}</p>
+        <div class="rmeta">${meta.join("")}</div>
+      </a>`;
+  }).join("");
+}
+
+function ucitajRepos(){
+  fetch(`https://api.github.com/users/${GH_USER}/repos?per_page=100&sort=updated`)
+    .then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(data=>{
+      ghRepos = data
+        .filter(r=>!r.fork && !r.archived)
+        .sort((a,b)=> b.stargazers_count-a.stargazers_count || new Date(b.updated_at)-new Date(a.updated_at))
+        .slice(0,6);
+      renderRepos();
+    })
+    .catch(()=>{ ghRepos = false; renderRepos(); });
+}
+
 /* ===================== KALENDAR ===================== */
 const DP = {
   open:false,
@@ -1075,7 +1262,7 @@ function updateBudget(){
 /* ===================== JEZIK ===================== */
 function setLang(l){
   lang = l;
-  renderStatic(); renderXP(); renderChips(); renderGrid(); renderTabs(); renderFormOpts(); dpRefresh();
+  renderStatic(); renderXP(); renderChips(); renderGrid(); renderTabs(); renderFormOpts(); dpRefresh(); renderRepos();
 }
 $("#langBtn").addEventListener("click", ()=> setLang(lang==="sr"?"en":"sr"));
 
@@ -1211,6 +1398,7 @@ document.querySelectorAll("form").forEach(f=>{
 /* ===================== START ===================== */
 dpInit();
 setLang("sr");
+ucitajRepos();
 </script>
 </body>
 </html>
