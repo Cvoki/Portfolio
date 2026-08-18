@@ -4,7 +4,7 @@
 
 </div>
 
-# Luka Cvoro — Portfolio
+# Luka Cvoro - Portfolio
 
 Lični sajt i CV. Oracle APEX & PL/SQL developer iz Beograda.
 
@@ -14,7 +14,7 @@ Lični sajt i CV. Oracle APEX & PL/SQL developer iz Beograda.
 
 ## Šta je ovo
 
-Jednostranični portfolio bez ijednog framework-a — čist HTML, CSS i JavaScript u jednom fajlu. Nema build koraka, nema `node_modules`, nema zavisnosti. Otvoriš `index.html` i radi.
+Jednostranični portfolio bez ijednog framework-a - čist HTML, CSS i JavaScript u jednom fajlu. Nema build koraka, nema `node_modules`, nema zavisnosti. Otvoriš `index.html` i radi.
 
 Ideja je bila da sajt ne samo *opisuje* šta radim, nego to i **pokaže**: pošto radim sa bazama, filtriranje tehnologija ispisuje pravi SQL upit, a slanje forme prikazuje `INSERT` koji bi je upisao.
 
@@ -22,15 +22,15 @@ Ideja je bila da sajt ne samo *opisuje* šta radim, nego to i **pokaže**: pošt
 
 | | |
 |---|---|
-| **Dvojezičnost** | Ceo sajt na srpskom i engleskom — jedan klik, bez ponovnog učitavanja. Prevode se i tekstovi, i datumi, i primeri koda, i poruke o greškama. |
+| **Dvojezičnost** | Ceo sajt na srpskom i engleskom - jedan klik, bez ponovnog učitavanja. Prevode se i tekstovi, i datumi, i primeri koda, i poruke o greškama. |
 | **Živa SQL konzola** | Filteri iznad liste tehnologija ispisuju stvarni `SELECT ... WHERE ... ORDER BY` sa brojem redova, koji se menja dok biraš. |
 | **GitHub projekti** | Repozitorijumi se povlače uživo sa GitHub API-ja. Novi projekat se pojavi sam, bez izmene koda i bez novog deploya. |
-| **Studija slučaja** | Jedan projekat izbliza — situacija, šta je rađeno, rezultat i šta je naučeno, sa istaknutom brojkom. |
+| **Studija slučaja** | Jedan projekat izbliza - situacija, šta je rađeno, rezultat i šta je naučeno, sa istaknutom brojkom. |
 | **Vremenska linija** | Iskustvo i obrazovanje sa tačkicama po pozicijama, aktivne uloge označene. |
-| **Formulari** | Kontakt i zahtev za ponudu, sa validacijom po polju i slanjem preko Netlify Forms — bez backenda. |
+| **Formulari** | Kontakt i zahtev za ponudu, sa validacijom po polju i slanjem preko Netlify Forms - bez backenda. |
 | **Kalendar** | Sopstveni date picker, jer nativni `input[type=date]` ne poštuje jezik sajta. Format `dd.mm.gggg.` ili `dd/mm/yyyy`. |
 | **Navigacija koja prati** | Aktivna sekcija se sama ističe dok skroluješ, sa zlatnom linijom ispod stavke. |
-| **Deljivi linkovi** | Svaki naslov ima `#` koji se pojavi na prelaz mišem — klik kopira link direktno na tu sekciju. |
+| **Deljivi linkovi** | Svaki naslov ima `#` koji se pojavi na prelaz mišem - klik kopira link direktno na tu sekciju. |
 | **SEO** | `sitemap.xml`, `robots.txt`, Open Graph slika i `Person` strukturirani podaci za pretraživače. |
 
 ## Sadržaj sajta
@@ -41,7 +41,7 @@ Ideja je bila da sajt ne samo *opisuje* šta radim, nego to i **pokaže**: pošt
 
 `HTML5` · `CSS3` (Grid, Flexbox, custom properties) · `JavaScript` (ES6+, bez biblioteka) · `GitHub REST API` · `Netlify Forms`
 
-Bez jQuery-ja, bez React-a, bez Tailwind-a. Namerno — za sajt ove veličine sve to bi bilo više tereta nego koristi.
+Bez jQuery-ja, bez React-a, bez Tailwind-a. Namerno - za sajt ove veličine sve to bi bilo više tereta nego koristi.
 
 ## Struktura
 
@@ -63,7 +63,7 @@ git clone https://github.com/Cvoki/Portfolio.git
 cd Portfolio
 ```
 
-Otvori `index.html` u pregledaču — to je sve.
+Otvori `index.html` u pregledaču - to je sve.
 
 Za lokalni server (potreban ako testiraš slanje forme):
 
@@ -76,7 +76,7 @@ python3 -m http.server 8000
 
 ## Objavljivanje
 
-Sajt je na Netlify-u, povezan sa ovim repozitorijumom — svaki `push` na `main` pokreće novi deploy.
+Sajt je na Netlify-u, povezan sa ovim repozitorijumom - svaki `push` na `main` pokreće novi deploy.
 
 Za forme je potrebno u Netlify panelu jednom uključiti **Forms → Enable form detection** i zatim ponovo deployovati. Obaveštenja se podešavaju pod *Notifications → Form submission notifications*.
 
@@ -93,18 +93,18 @@ Sve što se menja nalazi se u `<script>` bloku na dnu `index.html`, u nekoliko n
 | Tehnologije i nivoi | `const TEH = [...]` |
 | Primeri koda | `const PRIMERI = {...}` |
 
-Svako polje sa tekstom ima oblik `{sr: "...", en: "..."}` — dodaš oba i prevod radi sam.
+Svako polje sa tekstom ima oblik `{sr: "...", en: "..."}` - dodaš oba i prevod radi sam.
 
 ## Vidljivost u pretrazi
 
-Uz sajt idu `sitemap.xml` i `robots.txt`, a u `index.html` je ugrađen **`Person` JSON-LD** blok — ime, titula, poslodavac, škola, jezici i linkovi ka LinkedIn-u i GitHub-u. To je ono što Google čita kad neko pretražuje osobu.
+Uz sajt idu `sitemap.xml` i `robots.txt`, a u `index.html` je ugrađen **`Person` JSON-LD** blok - ime, titula, poslodavac, škola, jezici i linkovi ka LinkedIn-u i GitHub-u. To je ono što Google čita kad neko pretražuje osobu.
 
-Posle objavljivanja vredi jednom prijaviti sajt na [Google Search Console](https://search.google.com/search-console) i poslati mapu — bez toga indeksiranje ume da potraje.
+Posle objavljivanja vredi jednom prijaviti sajt na [Google Search Console](https://search.google.com/search-console) i poslati mapu - bez toga indeksiranje ume da potraje.
 
 ## Licenca
 
-Kod je slobodan za korišćenje i učenje. Sadržaj (biografija, fotografija, tekstovi) nije — to je moje.
+Kod je slobodan za korišćenje i učenje. Sadržaj (biografija, fotografija, tekstovi) nije - to je moje.
 
 ---
 
-<sub>Ako te zanima saradnja ili imaš pitanje — <a href="mailto:lukac95@gmail.com">javi se</a>.</sub>
+<sub>Ako te zanima saradnja ili imaš pitanje - <a href="mailto:lukac95@gmail.com">javi se</a>.</sub>
