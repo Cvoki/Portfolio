@@ -4,7 +4,7 @@
 
 </div>
 
-# Luka Cvoro — Portfolio
+# Luka Cvoro - Portfolio
 
 Personal site and CV. Oracle APEX & PL/SQL developer based in Belgrade.
 
@@ -14,7 +14,7 @@ Personal site and CV. Oracle APEX & PL/SQL developer based in Belgrade.
 
 ## What this is
 
-A single-page portfolio with no framework at all — plain HTML, CSS and JavaScript in one file. No build step, no `node_modules`, no dependencies. Open `index.html` and it runs.
+A single-page portfolio with no framework at all - plain HTML, CSS and JavaScript in one file. No build step, no `node_modules`, no dependencies. Open `index.html` and it runs.
 
 The idea was for the site to not just *describe* what I do, but to **show** it: since I work with databases, filtering the tech stack prints a real SQL query, and submitting a form shows the `INSERT` that would store it.
 
@@ -22,15 +22,15 @@ The idea was for the site to not just *describe* what I do, but to **show** it: 
 
 | | |
 |---|---|
-| **Bilingual** | The whole site in Serbian and English — one click, no page reload. Text, dates, code samples and error messages all switch. |
+| **Bilingual** | The whole site in Serbian and English - one click, no page reload. Text, dates, code samples and error messages all switch. |
 | **Live SQL console** | The filters above the tech list print an actual `SELECT ... WHERE ... ORDER BY` with a row count that updates as you choose. |
-| **GitHub projects** | Repositories are pulled live from the GitHub API. A new project shows up on its own — no code change, no redeploy. |
-| **Case study** | One project up close — situation, what was done, the result and what was learned, with a headline figure. |
+| **GitHub projects** | Repositories are pulled live from the GitHub API. A new project shows up on its own - no code change, no redeploy. |
+| **Case study** | One project up close - situation, what was done, the result and what was learned, with a headline figure. |
 | **Timeline** | Experience and education with bullet points per role, active positions marked. |
-| **Forms** | Contact and quote request, with per-field validation and submission through Netlify Forms — no backend. |
+| **Forms** | Contact and quote request, with per-field validation and submission through Netlify Forms - no backend. |
 | **Date picker** | A custom one, because the native `input[type=date]` ignores the site's language. Formats as `dd.mm.yyyy.` or `dd/mm/yyyy`. |
 | **Scroll-aware nav** | The active section highlights itself as you scroll, with a gold underline on the menu item. |
-| **Shareable links** | Every heading carries a `#` that appears on hover — clicking copies a link straight to that section. |
+| **Shareable links** | Every heading carries a `#` that appears on hover - clicking copies a link straight to that section. |
 | **SEO** | `sitemap.xml`, `robots.txt`, an Open Graph image and `Person` structured data for search engines. |
 
 ## What's on the site
@@ -41,7 +41,7 @@ Six sections, one below the other: **experience** (six roles with bullet points,
 
 `HTML5` · `CSS3` (Grid, Flexbox, custom properties) · `JavaScript` (ES6+, no libraries) · `GitHub REST API` · `Netlify Forms`
 
-No jQuery, no React, no Tailwind. Deliberately — for a site this size they would be more weight than help.
+No jQuery, no React, no Tailwind. Deliberately - for a site this size they would be more weight than help.
 
 ## Structure
 
@@ -63,7 +63,7 @@ git clone https://github.com/Cvoki/Portfolio.git
 cd Portfolio
 ```
 
-Open `index.html` in a browser — that's it.
+Open `index.html` in a browser - that's it.
 
 For a local server (needed if you want to test form submission):
 
@@ -76,7 +76,7 @@ python3 -m http.server 8000
 
 ## Deployment
 
-The site runs on Netlify, connected to this repository — every `push` to `main` triggers a new deploy.
+The site runs on Netlify, connected to this repository - every `push` to `main` triggers a new deploy.
 
 For forms, enable **Forms → Enable form detection** once in the Netlify dashboard, then redeploy. Notifications are configured under *Notifications → Form submission notifications*.
 
@@ -93,18 +93,18 @@ Everything editable lives in the `<script>` block at the bottom of `index.html`,
 | Tech stack and levels | `const TEH = [...]` |
 | Code samples | `const PRIMERI = {...}` |
 
-Every text field takes the shape `{sr: "...", en: "..."}` — add both and the translation works by itself.
+Every text field takes the shape `{sr: "...", en: "..."}` - add both and the translation works by itself.
 
 ## Search visibility
 
-The site ships with `sitemap.xml` and `robots.txt`, and `index.html` embeds a **`Person` JSON-LD** block — name, title, employer, school, languages and links to LinkedIn and GitHub. That's what Google reads when someone searches for a person.
+The site ships with `sitemap.xml` and `robots.txt`, and `index.html` embeds a **`Person` JSON-LD** block - name, title, employer, school, languages and links to LinkedIn and GitHub. That's what Google reads when someone searches for a person.
 
-After deploying, it's worth submitting the site once to [Google Search Console](https://search.google.com/search-console) and sending the sitemap — indexing can drag on without it.
+After deploying, it's worth submitting the site once to [Google Search Console](https://search.google.com/search-console) and sending the sitemap - indexing can drag on without it.
 
 ## License
 
-The code is free to use and learn from. The content (biography, photo, copy) is not — that part is mine.
+The code is free to use and learn from. The content (biography, photo, copy) is not - that part is mine.
 
 ---
 
-<sub>If you'd like to work together or have a question — <a href="mailto:lukac95@gmail.com">get in touch</a>.</sub>
+<sub>If you'd like to work together or have a question - <a href="mailto:lukac95@gmail.com">get in touch</a>.</sub>
